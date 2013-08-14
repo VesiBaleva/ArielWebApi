@@ -21,6 +21,8 @@ namespace ArielWebRecipe.Models
 
         public string Nickname { get; set; }
 
+        public string SessionKey { get; set; }
+
         public virtual ICollection<Recipe> FavouriteRecipes { get; set; }
     }
 }

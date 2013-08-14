@@ -21,8 +21,8 @@ var persisters = (function () {
         init: function (rootUrl) {
             this.rootUrl = rootUrl;
             this.user = new UserPersister(this.rootUrl);
-            this.game = new GamePersister(this.rootUrl);
-            this.message = new MessagesPersister(this.rootUrl);
+            this.recipe = new RecipePersister(this.rootUrl);
+            this.comment = new CommentsPersister(this.rootUrl);
         },
         isUserLoggedIn: function () {
             var isLoggedIn = nickname != null && sessionKey != null;
@@ -35,7 +35,7 @@ var persisters = (function () {
     var UserPersister = Class.create({
         init: function (rootUrl) {
             //...api/user/
-            this.rootUrl = rootUrl + "user/";
+            this.rootUrl = rootUrl + "users/";
         },
         login: function (user, success, error) {
             var url = this.rootUrl + "login";
@@ -67,6 +67,12 @@ var persisters = (function () {
             var url = this.rootUrl + "logout/" + sessionKey;
             httpRequester.getJSON(url, function (data) {
                 clearUserData();
+                success(data);
+            }, error)
+        },
+        test: function (success, error) {
+            var url = this.rootUrl + "test";
+            httpRequester.getJSON(url, function (data) {
                 success(data);
             }, error)
         },

@@ -5,9 +5,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArielWebRecipe.Models", "Ar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArielWebRecipe.Data", "ArielWebRecipe.Data\ArielWebRecipe.Data.csproj", "{50B5D94D-DA53-436C-8593-DDF8389390A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArielWebRecipe.Client", "ArielWebRecipe.Client\ArielWebRecipe.Client.csproj", "{D8F047A7-5304-4CFF-AACD-7FA63EB5CB5B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArielWebRecipe.WebApi", "ArielWebRecipe.WebApi\ArielWebRecipe.WebApi.csproj", "{D45DE28B-7E16-46E0-B3DE-6EDF2DBF0062}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArielWebRecipe.WebClient", "ArielWebRecipe.WebClient\ArielWebRecipe.WebClient.csproj", "{36F944A3-4A8C-4ECC-AB59-419DBC94EF3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +23,14 @@ Global
 		{50B5D94D-DA53-436C-8593-DDF8389390A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50B5D94D-DA53-436C-8593-DDF8389390A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50B5D94D-DA53-436C-8593-DDF8389390A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D8F047A7-5304-4CFF-AACD-7FA63EB5CB5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8F047A7-5304-4CFF-AACD-7FA63EB5CB5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8F047A7-5304-4CFF-AACD-7FA63EB5CB5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8F047A7-5304-4CFF-AACD-7FA63EB5CB5B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D45DE28B-7E16-46E0-B3DE-6EDF2DBF0062}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D45DE28B-7E16-46E0-B3DE-6EDF2DBF0062}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D45DE28B-7E16-46E0-B3DE-6EDF2DBF0062}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D45DE28B-7E16-46E0-B3DE-6EDF2DBF0062}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36F944A3-4A8C-4ECC-AB59-419DBC94EF3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36F944A3-4A8C-4ECC-AB59-419DBC94EF3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36F944A3-4A8C-4ECC-AB59-419DBC94EF3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36F944A3-4A8C-4ECC-AB59-419DBC94EF3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

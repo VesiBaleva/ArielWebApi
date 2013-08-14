@@ -161,7 +161,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -170,6 +170,7 @@
     <Compile Include="Models\PreparationStepInfo.cs" />
     <Compile Include="Models\RecipeDetails.cs" />
     <Compile Include="Models\RecipeInfo.cs" />
+    <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +302,10 @@
     <ProjectReference Include="..\ArielWebRecipe.Models\ArielWebRecipe.Models.csproj">
       <Project>{9a160b52-463b-4efc-b535-04f2d4d61eb1}</Project>
       <Name>ArielWebRecipe.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ArielWebRecipe.Repositories\ArielWebRecipe.Repositories.csproj">
+      <Project>{8097638F-8067-4191-B48F-FC6B135BA464}</Project>
+      <Name>ArielWebRecipe.Repositories</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

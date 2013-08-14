@@ -12,6 +12,7 @@ namespace ArielWebRecipe.Models
         {
             this.PreparationSteps = new HashSet<PreparationStep>();
             this.Comments = new HashSet<Comment>();
+            this.Users = new HashSet<User>();
             this.Likes = 0;
         }
 

@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20617.1 PREVIEW
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArielWebRecipe.Models", "ArielWebRecipe.Models\ArielWebRecipe.Models.csproj", "{9A160B52-463B-4EFC-B535-04F2D4D61EB1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArielWebRecipe.Data", "ArielWebRecipe.Data\ArielWebRecipe.Data.csproj", "{50B5D94D-DA53-436C-8593-DDF8389390A2}"
@@ -8,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArielWebRecipe.WebApi", "ArielWebRecipe.WebApi\ArielWebRecipe.WebApi.csproj", "{D45DE28B-7E16-46E0-B3DE-6EDF2DBF0062}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArielWebRecipe.WebClient", "ArielWebRecipe.WebClient\ArielWebRecipe.WebClient.csproj", "{36F944A3-4A8C-4ECC-AB59-419DBC94EF3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArielWebRecipe.Repositories", "ArielWebRecipe.Repositories\ArielWebRecipe.Repositories.csproj", "{8097638F-8067-4191-B48F-FC6B135BA464}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,10 @@ Global
 		{36F944A3-4A8C-4ECC-AB59-419DBC94EF3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36F944A3-4A8C-4ECC-AB59-419DBC94EF3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36F944A3-4A8C-4ECC-AB59-419DBC94EF3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8097638F-8067-4191-B48F-FC6B135BA464}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8097638F-8067-4191-B48F-FC6B135BA464}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8097638F-8067-4191-B48F-FC6B135BA464}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8097638F-8067-4191-B48F-FC6B135BA464}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

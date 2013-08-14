@@ -176,9 +176,9 @@
     <Compile Include="Models\CommentInfo.cs" />
     <Compile Include="Models\PreparationStepDetails.cs" />
     <Compile Include="Models\PreparationStepInfo.cs" />
+    <Compile Include="Models\RecipesController.cs" />
     <Compile Include="Models\RecipeDetails.cs" />
     <Compile Include="Models\RecipeInfo.cs" />
-    <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

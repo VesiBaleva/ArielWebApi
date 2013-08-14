@@ -37,6 +37,7 @@ namespace ArielWebRecipe.WebApi.Controllers
             if (loggedUser != null)
             {
                 loggedUser.SessionKey = sessionKey;
+                userRepository.Update(loggedUser.Id, loggedUser);
                 return this.Request.CreateResponse(HttpStatusCode.OK, sessionKey);
             }
 
@@ -71,9 +72,9 @@ namespace ArielWebRecipe.WebApi.Controllers
 
         [HttpGet]
         [ActionName("test")]
-        public string Test()
+        public IEnumerable<User> Test()
         {
-            return "OK";
+            return userRepository.All();
         }
     }
 }

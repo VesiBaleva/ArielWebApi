@@ -79,7 +79,7 @@ namespace ArielWebRecipe.WebApi.Controllers
             return userRepository.All();
         }
 
-        [HttpGet]
+        [HttpPost]
         [ActionName("testUpload")]
         public string TestUpload()
         {

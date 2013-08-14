@@ -54,7 +54,7 @@ var controllers = (function () {
                 fd.append("myName", "BeboBeboBe");
 
                 $.ajax({
-                    url: "upload.php",
+                    url: "http://arialwebapirecipe.apphb.com/api/Users/testUpload",
                     type: "POST",
                     data: fd,
                     processData: false,

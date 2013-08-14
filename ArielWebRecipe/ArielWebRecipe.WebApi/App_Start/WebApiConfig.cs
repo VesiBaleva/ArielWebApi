@@ -10,6 +10,12 @@ namespace ArielWebRecipe.WebApi
         public static void Register(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
+                name: "UsersApi",
+                routeTemplate: "api/users/{action}/{sessionkey}",
+                defaults: new { controller = "users", sessionKey = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }

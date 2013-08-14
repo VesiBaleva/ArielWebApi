@@ -60,8 +60,11 @@ namespace ArielWebRecipe.WebApi.Controllers
 
         [HttpGet]
         [ActionName("logout")]
-        public void LogoutUser()
+        public void LogoutUser(string sessionKey)
         {
+            var loggedUser = userRepository.All().Where(u => u.SessionKey == sessionKey).FirstOrDefault();
+            loggedUser.SessionKey = null;
+            userRepository.Update(loggedUser.Id, loggedUser);
         }
 
         [HttpGet]

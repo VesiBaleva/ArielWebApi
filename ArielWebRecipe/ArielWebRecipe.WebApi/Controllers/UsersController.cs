@@ -7,9 +7,11 @@ using System.Web.Http;
 using ArielWebRecipe.Models;
 using ArielWebRecipe.Repositories;
 using ArielWebRecipe.Data;
+using System.Web.Http.Cors;
 
 namespace ArielWebRecipe.WebApi.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UsersController : ApiController
     {
         private IRepository<User> userRepository;

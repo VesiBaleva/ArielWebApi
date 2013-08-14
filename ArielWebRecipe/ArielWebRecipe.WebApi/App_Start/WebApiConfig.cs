@@ -9,6 +9,8 @@ namespace ArielWebRecipe.WebApi
     {
         public static void Register(HttpConfiguration config)
         {
+            config.EnableCors();
+
             config.Routes.MapHttpRoute(
                 name: "UsersApi",
                 routeTemplate: "api/users/{action}/{sessionkey}",

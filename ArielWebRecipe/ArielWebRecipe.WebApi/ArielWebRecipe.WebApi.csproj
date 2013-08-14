@@ -165,6 +165,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CommentInfo.cs" />
+    <Compile Include="Models\PreparationStepDetails.cs" />
+    <Compile Include="Models\PreparationStepInfo.cs" />
+    <Compile Include="Models\RecipeDetails.cs" />
+    <Compile Include="Models\RecipeInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -284,7 +289,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

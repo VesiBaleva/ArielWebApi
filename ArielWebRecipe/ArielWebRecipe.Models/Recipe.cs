@@ -21,14 +21,16 @@ namespace ArielWebRecipe.Models
 
         public string PictureLink { get; set; }
 
-        public int? UserId { get; set; }
+        public int? SuthorId { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual User Author{ get; set; }
 
         public int Likes { get; set; }
 
         public virtual ICollection<PreparationStep> PreparationSteps { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+
+        public virtual ICollection<User> Users { get; set; }
     }
 }

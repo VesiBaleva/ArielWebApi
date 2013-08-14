@@ -47,24 +47,23 @@ namespace ArielWebRecipe.WebApi.Models
         [ActionName("page")]
         public ICollection<RecipeInfo> GetPage(int sessionKey)
         {
-            IQueryable<RecipeInfo> recipeList = recipeRepository.All().
-                OrderBy(x => x.Users.Count).
-                Skip(sessionKey * RECIPE_ON_PAGE_COUNT).Take(RECIPE_ON_PAGE_COUNT).Select(RecipeInfo.FromRecipe);
+            var recipeList = recipeRepository.All().
+                OrderBy(x => x.Users.Count).Skip(sessionKey * RECIPE_ON_PAGE_COUNT).Take(RECIPE_ON_PAGE_COUNT);
             ICollection<RecipeInfo> recipeInfoList = new List<RecipeInfo>();
 
-            //foreach (var recipe in recipeList)
-            //{
-            //    recipeInfoList.Add(new RecipeInfo
-            //    {
-            //        Id=recipe.Id,
-            //        Title = recipe.Title,
-            //        AuthorName = recipe.Author.Nickname,
-            //        PictureLink = recipe.PictureLink,
-            //        PreparationTime = recipe.PreparationSteps.Sum(x => x.PreparationTime)
-            //    });
-            //}
+            foreach (var recipe in recipeList)
+            {
+                recipeInfoList.Add(new RecipeInfo
+                {
+                    Id=recipe.Id,
+                    Title = recipe.Title,
+                    AuthorName = recipe.Author.Nickname,
+                    PictureLink = recipe.PictureLink,
+                    PreparationTime = recipe.PreparationSteps.Sum(x => x.PreparationTime)
+                });
+            }
 
-            return recipeList.ToList();
+            return recipeInfoList;
         }
 
         //[HttpGet]

@@ -9,7 +9,7 @@ namespace ArielWebRecipe.Client
     class Program
     {
         static void Main()
-        {
+        { 
         }
     }
 }

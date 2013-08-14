@@ -86,18 +86,8 @@ namespace ArielWebRecipe.WebApi.Controllers
         {
             //var file = File.Create(@"C:\Users\Angel\Documents\GitHub\ArielWebApi\ArielWebRecipe\testResult.txt")
 
-            var pairs = Request.Content.ReadAsMultipartAsync().Result;
 
-
-            StringBuilder result = new StringBuilder();
-
-            for (int i = 0; i < pairs.Contents.Count; i++)
-            {
-                result.Append(pairs.Contents[i].ReadAsStringAsync().Result).Append('\n');
-            }
-            //Console.WriteLine();
-
-            return result.ToString();
+            return Request.Content.ReadAsStringAsync().Result;
         }
     }
 }

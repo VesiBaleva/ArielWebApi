@@ -49,15 +49,34 @@ var controllers = (function () {
             wrapper.on("click", "#newRequest", function () {
                 console.log("Even on newRequest");
 
-                self.persister.user.test(function (data) {
-                    wrapper.find("#requestContent").html(JSON.stringify(data));
-                },
+                var fd = new FormData();
+                fd.append("fileToUpload", $('#file')[0].files[0]);
+                fd.append("myName", "BeboBeboBe");
 
-				function (err) {
-				    alert(JSON.stringify(err));
-				});
+                $.ajax({
+                    url: "upload.php",
+                    type: "POST",
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        // .. do something
+                    },
+                    error: function (jqXHR, textStatus, errorMessage) {
+                        console.log(errorMessage); // Optional
+                    }
+                });
+                
 
-                return false;
+                //self.persister.user.test(function (data) {
+                //    wrapper.find("#requestContent").html(JSON.stringify(data));
+                //},
+
+				//function (err) {
+				//    alert(JSON.stringify(err));
+				//});
+
+                //return false;
             });
             
             //User login/logout handlers

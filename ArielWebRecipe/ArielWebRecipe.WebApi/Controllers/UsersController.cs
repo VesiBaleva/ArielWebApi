@@ -9,6 +9,7 @@ using ArielWebRecipe.Repositories;
 using ArielWebRecipe.Data;
 using System.Web.Http.Cors;
 using ArielWebRecipe.WebApi.Models;
+using System.IO;
 
 namespace ArielWebRecipe.WebApi.Controllers
 {
@@ -76,6 +77,19 @@ namespace ArielWebRecipe.WebApi.Controllers
         public IEnumerable<User> Test()
         {
             return userRepository.All();
+        }
+
+        [HttpGet]
+        [ActionName("testUpload")]
+        public string TestUpload()
+        {
+            //var file = File.Create(@"C:\Users\Angel\Documents\GitHub\ArielWebApi\ArielWebRecipe\test.txt")
+
+            var result = Request.Content.ReadAsFormDataAsync().Result;
+            
+            //Console.WriteLine();
+
+            return result.Get("fileToUpload");
         }
     }
 }

@@ -13,7 +13,6 @@ namespace ArielWebRecipe.Models
             this.PreparationSteps = new HashSet<PreparationStep>();
             this.Comments = new HashSet<Comment>();
             this.Users = new HashSet<User>();
-            this.Likes = 0;
         }
 
         public int Id { get; set; }
@@ -22,11 +21,7 @@ namespace ArielWebRecipe.Models
 
         public string PictureLink { get; set; }
 
-        public int? SuthorId { get; set; }
-
         public virtual User Author{ get; set; }
-
-        public int Likes { get; set; }
 
         public virtual ICollection<PreparationStep> PreparationSteps { get; set; }
 

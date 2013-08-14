@@ -20,7 +20,9 @@ namespace ArielWebRecipe.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Recipe>().HasOptional(x => x.Author).WithMany().Map(x=>x.MapKey("AuthorId")).WillCascadeOnDelete(false);
 
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -44,6 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201308141157184_Initial.cs" />
+    <Compile Include="Migrations\201308141157184_Initial.Designer.cs">
+      <DependentUpon>201308141157184_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RecipeContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -57,6 +61,11 @@
       <Project>{9a160b52-463b-4efc-b535-04f2d4d61eb1}</Project>
       <Name>ArielWebRecipe.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201308141157184_Initial.resx">
+      <DependentUpon>201308141157184_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

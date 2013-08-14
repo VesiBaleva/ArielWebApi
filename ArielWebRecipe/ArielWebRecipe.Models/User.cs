@@ -10,7 +10,7 @@ namespace ArielWebRecipe.Models
     {
         public User()
         {
-            this.FavouriteRecipes = new HashSet<Recipe>();
+            this.Recipes = new HashSet<Recipe>();
         }
 
         public int Id { get; set; }
@@ -23,6 +23,6 @@ namespace ArielWebRecipe.Models
 
         public string SessionKey { get; set; }
 
-        public virtual ICollection<Recipe> FavouriteRecipes { get; set; }
+        public virtual ICollection<Recipe> Recipes { get; set; }
     }
 }

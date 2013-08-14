@@ -84,18 +84,16 @@ namespace ArielWebRecipe.WebApi.Controllers
         [ActionName("testUpload")]
         public string TestUpload()
         {
-            //var file = File.Create(@"C:\Users\Angel\Documents\GitHub\ArielWebApi\ArielWebRecipe\test.txt")
+            //var file = File.Create(@"C:\Users\Angel\Documents\GitHub\ArielWebApi\ArielWebRecipe\testResult.txt")
 
-            var pairs = Request.Content.ReadAsFormDataAsync().Result;
+            var pairs = Request.Content.ReadAsMultipartAsync().Result;
+
 
             StringBuilder result = new StringBuilder();
 
-            for (int i = 0; i < pairs.Count; i++)
+            for (int i = 0; i < pairs.Contents.Count; i++)
             {
-                foreach (var value in pairs.GetValues(i))
-                {
-                    result.Append(value).Append('\n');
-                }
+                result.Append(pairs.Contents[i].ReadAsStringAsync().Result).Append('\n');
             }
             //Console.WriteLine();
 

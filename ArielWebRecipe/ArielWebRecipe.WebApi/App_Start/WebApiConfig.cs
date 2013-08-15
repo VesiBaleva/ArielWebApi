@@ -30,6 +30,12 @@ namespace ArielWebRecipe.WebApi
             );
 
             config.Routes.MapHttpRoute(
+               name: "LikesApi",
+               routeTemplate: "api/recipes/recipe/{id}/like/{sessionkey}",
+               defaults: new { controller = "likes", sessionKey = RouteParameter.Optional }
+           );
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }

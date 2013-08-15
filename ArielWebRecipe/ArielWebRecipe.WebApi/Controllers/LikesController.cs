@@ -19,6 +19,20 @@ namespace ArielWebRecipe.WebApi.Controllers
         {
             var dbContext = new RecipeContext();
             this.recipeRepository = new DbRecipeRepository();
+            this.userRepository = new DbUserRepository();
+        }
+        
+        [HttpGet]
+        [ActionName("like")]
+        public void Like(int id, string sessionKey)
+        {
+            var loggedUser = this.userRepository.All().Where(a => a.SessionKey == sessionKey).FirstOrDefault();
+            if (loggedUser != null)
+            {
+                var recipe = recipeRepository.Get(id);
+                recipe.Users.Add(loggedUser);
+                this.recipeRepository.Update(recipe.Id, recipe);
+            }
         }
     }
 }

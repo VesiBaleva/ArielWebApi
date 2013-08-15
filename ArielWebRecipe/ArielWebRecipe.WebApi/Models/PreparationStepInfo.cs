@@ -9,6 +9,8 @@ namespace ArielWebRecipe.WebApi.Models
 {
     public class PreparationStepInfo
     {
+        public int Id { get; set; }
+
         public int Order { get; set; }
 
         public string Description { get; set; }
@@ -21,6 +23,7 @@ namespace ArielWebRecipe.WebApi.Models
             {
                 return x => new PreparationStepInfo
                 {
+                    Id = x.Id,
                     Order = x.Order,
                     Description = x.Description,
                     PreparationTime = x.PreparationTime

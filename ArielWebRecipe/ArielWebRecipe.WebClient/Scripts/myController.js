@@ -7,7 +7,7 @@ var controllers = (function () {
 
     var updateTimer = null;
 
-    var rootUrl = "http://arialwebapirecipe.apphb.com/api/";
+    var rootUrl = "http://localhost:9181/api/";
     var Controller = Class.create({
         init: function () {
             this.persister = persisters.get(rootUrl);
@@ -75,7 +75,7 @@ var controllers = (function () {
 
                 var newRecipe = {
                     Title : "newRecipe",
-                    Steps : steps,
+                    PreparationSteps: steps,
                 }
 
                 var fd = new FormData();
@@ -85,10 +85,10 @@ var controllers = (function () {
                 fd.append("Recipe", JSON.stringify(newRecipe));
                 fd.append("SessionKey", "SomeSessionKey");
 
-                self.persister.recipe.create(newRecipe, function () {
-                    wrapper.find("#error-messages").text(data.responseJSON.Message);
+                self.persister.recipe.create(newRecipe, function (data) {
+                    //wrapper.find("#error-messages").text(data.responseJSON.Message);
                 }, function (err) {
-                    wrapper.find("#error-messages").text(err.responseJSON.Message);
+                    //wrapper.find("#error-messages").text(err.responseJSON.Message);
                 });
 
                 //$.ajax({

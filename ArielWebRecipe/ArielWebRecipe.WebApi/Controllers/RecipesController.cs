@@ -33,11 +33,14 @@ namespace ArielWebRecipe.WebApi.Models
 
         [HttpPost]
         [ActionName("add")]
-        public void AddRecipe(string sessionKey, [FromBody] RecipeDetails recipeDetails)
+        public RecipeDetails AddRecipe(string sessionKey, [FromBody] RecipeDetails recipeDetails)
         {
+            //creating new Recipe
             var newRecipe = new Recipe();
             newRecipe.Title = recipeDetails.Title;
 
+            //Creating list of preparation steps
+            var newSteps = new List<PreparationStep>();
             foreach (var step in recipeDetails.PreparationSteps)
             {
                 var newStep = new PreparationStep()
@@ -47,14 +50,31 @@ namespace ArielWebRecipe.WebApi.Models
                     PreparationTime = step.PreparationTime
                 };
 
+                newSteps.Add(newStep);
                 newRecipe.PreparationSteps.Add(newStep);
             }
 
+            //Check if the user is authentic
             var author = this.userRepository.All().Where(a => a.SessionKey == sessionKey).FirstOrDefault();
             if (author != null)
             {
                 newRecipe.Author = author;
                 this.recipeRepository.Add(newRecipe);
+
+                //Returning Recipe and Preparation Steps Ids
+                recipeDetails.Id = newRecipe.Id;
+
+                int i = 0;
+                foreach (var step in recipeDetails.PreparationSteps)
+                {
+                    step.Id = newSteps[i++].Id;
+                }
+
+                return recipeDetails;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("You are not an author!!!");
             }
         }
 

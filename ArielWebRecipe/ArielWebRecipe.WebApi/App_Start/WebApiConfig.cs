@@ -12,6 +12,12 @@ namespace ArielWebRecipe.WebApi
             config.EnableCors();
 
             config.Routes.MapHttpRoute(
+                name: "CookingApi",
+                routeTemplate: "api/recipes/recipe/{id}/start/{sessionkey}",
+                defaults: new { controller = "cooking", sessionKey = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "UsersApi",
                 routeTemplate: "api/users/{action}/{sessionkey}",
                 defaults: new { controller = "users", sessionKey = RouteParameter.Optional }

@@ -120,7 +120,7 @@ namespace ArielWebRecipe.WebApi.Controllers
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
 
-            string root = HttpContext.Current.Request.ServerVariables["~/App_Data/Uploads"];
+            string root = HttpContext.Current.Request.ServerVariables["APPL_PHYSICAL_PATH"];
             //
             //var directory = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "_TemporaryFiles"));
             //root = directory.ToString();

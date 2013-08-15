@@ -23,12 +23,14 @@ namespace ArielWebRecipe.WebApi.Models
 
         private IRepository<Recipe> recipeRepository;
         private IRepository<User> userRepository;
+        private IRepository<PreparationStep> stepsRepository;
 
         public RecipesController()
         {
             var dbContext = new RecipeContext();
             this.recipeRepository = new DbRecipeRepository(dbContext);
             this.userRepository = new DbUserRepository(dbContext);
+            this.stepsRepository = new DbPreparationStepRepository(dbContext);
         }
 
         public RecipesController(IRepository<Recipe> repository)

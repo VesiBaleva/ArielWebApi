@@ -72,6 +72,7 @@
     <Content Include="Scripts\jquery-2.0.2.min.js" />
     <Content Include="Scripts\myController.js" />
     <Content Include="Scripts\myPersister.js" />
+    <Content Include="Scripts\myUi.js" />
     <Content Include="Scripts\ui.js" />
     <Content Include="Web.config" />
   </ItemGroup>

@@ -5,6 +5,7 @@ var persisters = (function () {
     var nickname = localStorage.getItem("nickname");
     var sessionKey = localStorage.getItem("sessionKey");
     function saveUserData(userData) {
+        console.log("Recieved: " + userData);
         localStorage.setItem("nickname", userData.nickname);
         localStorage.setItem("sessionKey", userData.sessionKey);
         nickname = userData.nickname;
@@ -25,9 +26,17 @@ var persisters = (function () {
             this.comment = new CommentsPersister(this.rootUrl);
         },
         isUserLoggedIn: function () {
-            var isLoggedIn = nickname != null && sessionKey != null;
+            var isLoggedIn = nickname != null && sessionKey != null && (typeof something !== "undefined");
+
+            if (isLoggedIn) {
+                console.log(sessionKey);
+                console.log(isLoggedIn);
+                console.log(nickname);
+            }
+
             return isLoggedIn;
         },
+
         nickname: function () {
             return nickname;
         }
@@ -40,8 +49,9 @@ var persisters = (function () {
         login: function (user, success, error) {
             var url = this.rootUrl + "login";
             var userData = {
-                username: user.username,
-                authCode: CryptoJS.SHA1(user.username + user.password).toString()
+                UserName: user.username,
+                Password: user.password
+                //authCode: CryptoJS.SHA1(user.username + user.password).toString()
             };
 
             httpRequester.postJSON(url, userData,
@@ -53,9 +63,10 @@ var persisters = (function () {
         register: function (user, success, error) {
             var url = this.rootUrl + "register";
             var userData = {
-                username: user.username,
-                nickname: user.nickname,
-                authCode: CryptoJS.SHA1(user.username + user.password).toString()
+                UserName: user.username,
+                Nickname: user.nickname,
+                Password: user.password
+                //authCode: CryptoJS.SHA1(user.username + user.password).toString()
             };
             httpRequester.postJSON(url, userData,
 				function (data) {

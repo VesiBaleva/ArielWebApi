@@ -7,7 +7,13 @@
     <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
     <script src="Scripts/class.js"></script>
     <script src="Scripts/myPersister.js"></script>
+    <script src="Scripts/myUi.js"></script>
     <script src="Scripts/myController.js"></script>
+    <style>
+            #error-messages {
+            color: #a30124;
+        }
+    </style>
 </head>
 <body>
     <div id="wrapper">
@@ -18,6 +24,8 @@
         </div>
         <button id="newRequest">Get</button>
         <div id="requestContent"></div>
+        <br />
+        <div id="error-messages"></div>
     </div>
 </body>
 </html>

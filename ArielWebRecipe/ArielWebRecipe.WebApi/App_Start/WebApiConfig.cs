@@ -43,7 +43,7 @@ namespace ArielWebRecipe.WebApi
 
             config.Routes.MapHttpRoute(
               name: "DropboxApi",
-              routeTemplate: "api/recipes/recipe/{action}/{sessionKey}",
+              routeTemplate: "api/recipes/recipe/{id}/upload/{sessionKey}",
               defaults: new { controller = "dropbox", sessionKey = RouteParameter.Optional }
           );
 

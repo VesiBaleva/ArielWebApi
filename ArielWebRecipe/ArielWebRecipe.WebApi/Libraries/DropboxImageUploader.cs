@@ -16,7 +16,7 @@ namespace ArielWebRecipe.WebApi.Libraries
         private const string DropboxAppKey = "05yz5fr8rr16fr7";
         private const string DropboxAppSecret = "dkg4rqm9o5sog67";
         private const string OAuthTokenFileName = "OAuthTokenFileName.txt";
-        private const string FolderName = "";
+        private const string FolderName = "data";
 
         public static string Upload(string filePath)
         {
@@ -36,13 +36,11 @@ namespace ArielWebRecipe.WebApi.Libraries
             // Display user name (from his profile)
             DropboxProfile profile = dropbox.GetUserProfileAsync().Result;
             // Create new folder
-            string newFolderName = FolderName;
-            Entry createFolderEntry = dropbox.CreateFolderAsync(newFolderName).Result;
 
             // Upload a file
             Entry uploadFileEntry = dropbox.UploadFileAsync(
                 new FileResource(filePath),
-                "/" + FolderName + filePath.Substring(filePath.LastIndexOf('/'))).Result;
+                "/" + FolderName).Result;
 
             // Share a file
             DropboxLink sharedUrl = dropbox.GetShareableLinkAsync(uploadFileEntry.Path).Result;

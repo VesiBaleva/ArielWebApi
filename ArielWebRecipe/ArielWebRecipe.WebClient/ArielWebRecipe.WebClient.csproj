@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="index2.html" />
     <Content Include="index.html" />
     <Content Include="Scripts\class.js" />
     <Content Include="Scripts\controller.js" />
@@ -64,6 +65,7 @@
     <None Include="Scripts\jquery-2.0.2.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.2.js" />
     <Content Include="Scripts\jquery-2.0.2.min.js" />
+    <Content Include="Scripts\myPersister.js" />
     <Content Include="Scripts\ui.js" />
     <Content Include="Web.config" />
   </ItemGroup>

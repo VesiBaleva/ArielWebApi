@@ -48,9 +48,9 @@
 
     function buildRecipesList(recipes) {
         var list = '';
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < recipes.length/3; i++) {
             list += '<div class="row-fluid">';
-            for (var j = 0; j < 3; j++) {
+            for (var j = 0; j < recipes.length / 3; j++) {
                 var recipe = recipes[i,j];
                 list +=
                     '<div class="span4" data-recipe-id="' + recipe.id + '">' +

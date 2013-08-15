@@ -66,6 +66,46 @@ namespace ArielWebRecipe.WebApi.Models
             return recipeInfoList;
         }
 
+        [HttpGet]
+        [ActionName("recipe")]
+        public RecipeDetails GetRecipe(int sessionKey)
+        {
+            var recipe = recipeRepository.Get(sessionKey);
+            RecipeDetails details = new RecipeDetails
+            {
+                AuthorName = recipe.Author.Nickname,
+                Comments = recipe.Comments.AsQueryable().Select(CommentInfo.FromComment).AsEnumerable(),
+                PictureLink = recipe.PictureLink,
+                PreparationSteps = recipe.PreparationSteps.AsQueryable().Select(PreparationStepInfo.FromPreparationStep).AsEnumerable(),
+                PreparationTime = recipe.PreparationSteps.Sum(x => x.PreparationTime),
+                Title = recipe.Title,
+                Likes = recipe.Users.Count()
+            };
+
+            return details;
+        }
+
+        [HttpGet]
+        [ActionName("steps")]
+        public ICollection<PreparationStepInfo> GetSteps(int sessionKey)
+        {
+            var steps = recipeRepository.Get(sessionKey).PreparationSteps;
+            var stepsInfo = new List<PreparationStepInfo>();
+
+            foreach (var step in steps)
+            {
+                stepsInfo.Add(new PreparationStepDetails
+                {
+                    Description = step.Description,
+                    Order=step.Order,
+                    PictureLink = step.PictureLink,
+                    PreparationTime=step.PreparationTime 
+                });
+            }
+
+            return stepsInfo.OrderBy(x => x.Order).ToList();
+        }
+
         //[HttpGet]
         //[ActionName("page")]
         //public HttpResponseMessage GetRecipe(int sessionKey, int id)

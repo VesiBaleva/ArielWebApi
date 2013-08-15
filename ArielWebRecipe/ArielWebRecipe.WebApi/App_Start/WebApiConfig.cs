@@ -24,6 +24,12 @@ namespace ArielWebRecipe.WebApi
             );
 
             config.Routes.MapHttpRoute(
+                name: "CommentsApi",
+                routeTemplate: "api/recipes/recipe/{id}/comment/{sessionkey}",
+                defaults: new { controller = "comments", sessionKey = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }

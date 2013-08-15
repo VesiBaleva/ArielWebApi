@@ -105,6 +105,7 @@ var controllers = (function () {
                     self.loadLoginFormUI(selector);
                     //clearInterval(updateTimer);
                 }, function (err) {
+                    wrapper.find("#error-messages").text(err.responseJSON.Message);
                 });
             });
 

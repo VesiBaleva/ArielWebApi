@@ -52,7 +52,7 @@ namespace ArielWebRecipe.WebApi.Controllers
             var sessionKey = Guid.NewGuid().ToString();
 
             var existingUser = userRepository.All().Where(u => u.UserName == user.UserName).FirstOrDefault();
-            if (existingUser != null)
+            if (existingUser == null)
             {
                 user.SessionKey = sessionKey;
                 userRepository.Add(user);

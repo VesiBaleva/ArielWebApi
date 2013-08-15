@@ -8,8 +8,8 @@ var persisters = (function () {
         console.log("Recieved: " + userData);
         localStorage.setItem("nickname", userData.nickname);
         localStorage.setItem("sessionKey", userData.sessionKey);
-        nickname = userData.nickname;
-        sessionKey = userData.sessionKey;
+        nickname = userData.Nickname;
+        sessionKey = userData.SessionKey;
     }
     function clearUserData() {
         localStorage.removeItem("nickname");

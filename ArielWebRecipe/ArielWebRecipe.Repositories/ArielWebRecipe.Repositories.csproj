@@ -56,6 +56,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ArielWebRecipe.Data\ArielWebRecipe.Data.csproj">
+      <Project>{50b5d94d-da53-436c-8593-ddf8389390a2}</Project>
+      <Name>ArielWebRecipe.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ArielWebRecipe.Models\ArielWebRecipe.Models.csproj">
       <Project>{9a160b52-463b-4efc-b535-04f2d4d61eb1}</Project>
       <Name>ArielWebRecipe.Models</Name>

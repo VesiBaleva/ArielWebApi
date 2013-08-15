@@ -29,7 +29,7 @@ namespace ArielWebRecipe.WebApi.Controllers
         public void StartCooking(int id, string sessionKey)
         { 
             List<PreparationStep> steps = recipeRepository.Get(id).PreparationSteps.OrderBy(x => x.Order).ToList();
-            string channel = userRepository.All().Where(x => x.SessionKey == sessionKey).FirstOrDefault().UserName;
+            string channel = userRepository.All().Where(x => x.SessionKey == sessionKey).FirstOrDefault().Nickname;
 
             Thread t = new Thread(new ThreadStart(() => PubnubPublisher.PubnubThread(steps, channel, sessionKey)));
             t.Start();

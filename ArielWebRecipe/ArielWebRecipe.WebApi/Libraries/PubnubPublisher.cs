@@ -19,7 +19,7 @@ namespace ArielWebRecipe.WebApi.Libraries
 
             foreach (var step in steps)
             {
-                Thread.Sleep(step.PreparationTime * 1000 * 60);
+                Thread.Sleep(step.PreparationTime * 1000);
                 string message = "Step " + step.Order + " Completed";
 
                 pubnub.Publish(channel, message);

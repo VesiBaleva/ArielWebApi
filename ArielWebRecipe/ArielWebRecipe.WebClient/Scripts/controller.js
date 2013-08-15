@@ -4,7 +4,7 @@
 /// <reference path="myPersister.js" />
 
 var controllers = (function() {
-    var rootUrl = "http://localhost:9181/api/";
+    var rootUrl = "http://arialwebapirecipe.apphb.com/api/";
 
     var newRecipe;
 

@@ -10,7 +10,5 @@ namespace ArielWebRecipe.WebApi.Models
         public IEnumerable<PreparationStepInfo> PreparationSteps { get; set; }
 
         public IEnumerable<CommentInfo> Comments { get; set; }
-
-        public int Likes { get; set; }
     }
 }

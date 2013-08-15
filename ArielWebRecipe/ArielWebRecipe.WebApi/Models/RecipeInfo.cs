@@ -19,6 +19,8 @@ namespace ArielWebRecipe.WebApi.Models
 
         public int PreparationTime { get; set; }
 
+        public int Likes { get; set; }
+
         public static Expression<Func<Recipe, RecipeInfo>> FromRecipe
         {
             get

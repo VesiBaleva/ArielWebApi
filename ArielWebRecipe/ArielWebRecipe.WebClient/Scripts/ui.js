@@ -47,18 +47,19 @@
     }
 
     function buildRecipesList(recipes) {
-        var list = '<div class="row-fluid">';
-        
-        for (var i = 0; i < recipes.length; i++) {
-
-            var recipe = recipes[i];
-            list +=
-				'<div class="span4" data-recipe-id="' + recipe.id + '">' +
-					'<a href="#" >' + $("<div> /").html(recipe.title).text() + '</a>' +
-                    '<img src="' + $("<div />").html(recipe.pictureLink).text() + '" class="img-polaroid" />' +
-				'</div>';
+        var list = '';
+        for (var i = 0; i < 3; i++) {
+            list += '<div class="row-fluid">';
+            for (var j = 0; j < 3; j++) {
+                var recipe = recipes[i,j];
+                list +=
+                    '<div class="span4" data-recipe-id="' + recipe.id + '">' +
+                        '<a href="#" >' + $("<div> /").html(recipe.title).text() + '</a>' +
+                        '<img src="' + $("<div />").html(recipe.pictureLink).text() + '" class="img-polaroid" />' +
+                    '</div>';
+            }
+            list += '</div>';
         }
-        list += "</div>";
         return list;
     }
 

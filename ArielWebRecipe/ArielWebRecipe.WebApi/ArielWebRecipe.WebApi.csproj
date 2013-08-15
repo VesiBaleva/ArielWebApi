@@ -179,6 +179,7 @@
     <Compile Include="Models\PreparationStepInfo.cs" />
     <Compile Include="Models\RecipeDetails.cs" />
     <Compile Include="Models\RecipeInfo.cs" />
+    <Compile Include="Models\UserReturnInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

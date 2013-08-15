@@ -8,6 +8,7 @@ using ArielWebRecipe.Models;
 using ArielWebRecipe.Repositories;
 using ArielWebRecipe.Data;
 using System.Web.Http.Cors;
+using ArielWebRecipe.WebApi.Models;
 
 namespace ArielWebRecipe.WebApi.Controllers
 {
@@ -38,7 +39,7 @@ namespace ArielWebRecipe.WebApi.Controllers
             {
                 loggedUser.SessionKey = sessionKey;
                 userRepository.Update(loggedUser.Id, loggedUser);
-                return this.Request.CreateResponse(HttpStatusCode.OK, sessionKey);
+                return this.Request.CreateResponse(HttpStatusCode.OK, new UserReturnInfo { Nickname = loggedUser.Nickname, SessionKey = sessionKey } );
             }
 
             return this.Request.CreateErrorResponse(HttpStatusCode.NotFound, "Invalid login!");

@@ -28,11 +28,11 @@ var persisters = (function () {
         isUserLoggedIn: function () {
             var isLoggedIn = nickname != null && sessionKey != null && (typeof something !== "undefined");
 
-            if (isLoggedIn) {
-                console.log(sessionKey);
-                console.log(isLoggedIn);
-                console.log(nickname);
-            }
+            //if (isLoggedIn) {
+            //    console.log(sessionKey);
+            //    console.log(isLoggedIn);
+            //    console.log(nickname);
+            //}
 
             return isLoggedIn;
         },

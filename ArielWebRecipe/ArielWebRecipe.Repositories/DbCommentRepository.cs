@@ -14,12 +14,6 @@ namespace ArielWebRecipe.Repositories
         private DbContext dbContext;
         private DbSet<Comment> entitySet;
 
-        public DbCommentRepository()
-        {
-            this.dbContext = new RecipeContext();
-            this.entitySet = this.dbContext.Set<Comment>();
-        }
-
         public DbCommentRepository(DbContext dbContext)
         {
             this.dbContext = dbContext;

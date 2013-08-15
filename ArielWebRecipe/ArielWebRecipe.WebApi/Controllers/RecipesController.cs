@@ -21,8 +21,9 @@ namespace ArielWebRecipe.WebApi.Models
 
         public RecipesController()
         {
-            this.recipeRepository = new DbRecipeRepository();
-            this.userRepository = new DbUserRepository();
+            var dbContext = new RecipeContext();
+            this.recipeRepository = new DbRecipeRepository(dbContext);
+            this.userRepository = new DbUserRepository(dbContext);
         }
 
         public RecipesController(IRepository<Recipe> repository)

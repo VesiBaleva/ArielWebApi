@@ -18,8 +18,8 @@ namespace ArielWebRecipe.WebApi.Controllers
         public LikesController()
         {
             var dbContext = new RecipeContext();
-            this.recipeRepository = new DbRecipeRepository();
-            this.userRepository = new DbUserRepository();
+            this.recipeRepository = new DbRecipeRepository(dbContext);
+            this.userRepository = new DbUserRepository(dbContext);
         }
         
         [HttpGet]

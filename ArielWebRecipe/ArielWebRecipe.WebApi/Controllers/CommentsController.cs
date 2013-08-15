@@ -18,9 +18,10 @@ namespace ArielWebRecipe.WebApi.Controllers
 
         public CommentsController()
         {
-            this.userRepository = new DbUserRepository();
-            this.recipeRepository = new DbRecipeRepository();
-            this.commentRepository = new DbCommentRepository();
+            var dbContext = new RecipeContext();
+            this.userRepository = new DbUserRepository(dbContext);
+            this.recipeRepository = new DbRecipeRepository(dbContext);
+            this.commentRepository = new DbCommentRepository(dbContext);
         }
 
         public CommentsController(IRepository<Recipe> repository)

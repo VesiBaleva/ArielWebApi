@@ -58,7 +58,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index2.html" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="img\images.jpg" />
     <Content Include="index.html" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\class.js" />
     <Content Include="Scripts\controller.js" />
     <Content Include="Scripts\http-requester.js" />

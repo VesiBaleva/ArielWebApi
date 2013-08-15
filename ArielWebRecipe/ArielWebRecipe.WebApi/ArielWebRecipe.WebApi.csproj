@@ -188,7 +188,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\RecipesController.cs" />
-    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -197,7 +196,6 @@
     <Compile Include="Libraries\PubnubAPI.cs" />
     <Compile Include="Libraries\PubnubPublisher.cs" />
     <Compile Include="Models\CommentInfo.cs" />
-    <Compile Include="Models\FineUploadResult.cs" />
     <Compile Include="Models\PreparationStepDetails.cs" />
     <Compile Include="Models\PreparationStepInfo.cs" />
     <Compile Include="Models\RecipeDetails.cs" />
@@ -324,7 +322,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\Uploads\renamed\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

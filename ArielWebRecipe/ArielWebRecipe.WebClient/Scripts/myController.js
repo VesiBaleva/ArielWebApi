@@ -47,20 +47,24 @@ var controllers = (function () {
 
             //Basic request
             wrapper.on("click", "#newRequest", function () {
-                console.log("Even on newRequest");
+                //console.log("Even on newRequest");
+
+                //self.persister.imageUpload.upload()
 
                 var fd = new FormData();
                 fd.append("fileToUpload", $('#file')[0].files[0]);
                 fd.append("myName", "BeboBeboBe");
+                fd.append("ImageName", "newImage.jpg");
+                fd.append("SessionKey", "SomeSessionKey");
 
                 $.ajax({
-                    url: "http://arialwebapirecipe.apphb.com/api/Users/testUpload",
+                    url: "http://localhost:9181/api/Users/testUpload",
                     type: "POST",
                     data: fd,
                     processData: false,
                     contentType: false,
                     success: function (response) {
-                        // .. do something
+                        console.log(response);
                     },
                     error: function (jqXHR, textStatus, errorMessage) {
                         console.log(errorMessage); // Optional

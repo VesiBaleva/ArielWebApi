@@ -6,8 +6,8 @@ var persisters = (function () {
     var sessionKey = localStorage.getItem("sessionKey");
     function saveUserData(userData) {
         console.log("Recieved: " + userData);
-        localStorage.setItem("nickname", userData.nickname);
-        localStorage.setItem("sessionKey", userData.sessionKey);
+        localStorage.setItem("nickname", userData.Nickname);
+        localStorage.setItem("sessionKey", userData.SessionKey);
         nickname = userData.Nickname;
         sessionKey = userData.SessionKey;
     }
@@ -24,15 +24,12 @@ var persisters = (function () {
             this.user = new UserPersister(this.rootUrl);
             this.recipe = new RecipePersister(this.rootUrl);
             this.comment = new CommentsPersister(this.rootUrl);
+            this.imageUpload = new ImageUploadPersister(this.rootUrl);
         },
         isUserLoggedIn: function () {
-            var isLoggedIn = nickname != null && sessionKey != null && (typeof something !== "undefined");
+            var isLoggedIn = nickname != null && sessionKey != null && (typeof sessionKey !== "undefined");
 
-            //if (isLoggedIn) {
-            //    console.log(sessionKey);
-            //    console.log(isLoggedIn);
-            //    console.log(nickname);
-            //}
+            console.log(isLoggedIn);
 
             return isLoggedIn;
         },
@@ -112,6 +109,19 @@ var persisters = (function () {
             httpRequester.getJSON(url, success, error);
         },
     });
+
+    var ImageUploadPersister = Class.create({
+        init: function (url) {
+            this.rootUrl = url + "users/";
+        },
+        upload: function (imageData, success, error) {
+
+            var url = this.rootUrl + "testUpload/" + sessionKey;
+
+            httpRequester.postJSON(url, recipeData, success, error);
+        },
+    });
+
 
     //Adding Comments
     var CommentsPersister = Class.create({

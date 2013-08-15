@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Web.Mvc;
 
-namespace FineUploader
+namespace ArielWebRecipe.WebApi.Controllers
 {
     [ModelBinder(typeof(ModelBinder))]
     public class FineUpload

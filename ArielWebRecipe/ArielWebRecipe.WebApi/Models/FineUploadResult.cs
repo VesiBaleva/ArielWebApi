@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using Newtonsoft.Json.Linq;
 
-namespace FineUploader
+namespace ArielWebRecipe.WebApi.Models
 {
     /// <remarks>
     /// Docs at https://github.com/Widen/fine-uploader/blob/master/server/readme.md

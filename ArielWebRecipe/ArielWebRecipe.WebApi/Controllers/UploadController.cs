@@ -1,8 +1,9 @@
-﻿using System;
+﻿using ArielWebRecipe.WebApi.Models;
+using System;
 using System.IO;
 using System.Web.Mvc;
 
-namespace FineUploader
+namespace ArielWebRecipe.WebApi.Controllers
 {
     public class UploadController : Controller
     {

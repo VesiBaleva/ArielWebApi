@@ -41,21 +41,14 @@ namespace ArielWebRecipe.Repositories
         public PreparationStep Update(int id, PreparationStep step)
         {
             PreparationStep queryStep = this.entitySet.Where(u => u.Id == id).FirstOrDefault();
-            if (step.Order != null)
+            if (step.Description != null)
             {
-                queryStep.Order = step.Order;
+                queryStep.Description = step.Description;
             }
-            if (step.PictureLink != null)
-            {
-                queryStep.PictureLink = step.PictureLink;
-            }
-            if (step.PreparationTime != null)
+
+            if (step.PreparationTime != 0)
             {
                 queryStep.PreparationTime = step.PreparationTime;
-            }
-            if (step.Recipe != null)
-            {
-                queryStep.Recipe = step.Recipe;
             }
 
             this.dbContext.SaveChanges();

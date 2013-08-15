@@ -21,7 +21,7 @@ var controllers = (function() {
            //else {
            //    this.loadLoginFormUI(selector);
            //}
-           //this.attachUIEventHandlers(selector);
+           this.attachUIEventHandlers(selector);
         },
 
         loadLoginFormUI: function (selector) {
@@ -38,8 +38,8 @@ var controllers = (function() {
             this.updateUI(selector);
 
             updateTimer = setInterval(function () {
-                self.updateUI(selector);
-            }, 80000);
+               // self.updateUI(selector);
+            }, 15000);
         },
 
         updateUI: function (selector) {
@@ -75,6 +75,112 @@ var controllers = (function() {
             //        ui.userOperationUI(this.persister.nickname());
             //    $(selector + " #user-operation").html(userOperationUIHtml);
             //});            
+        },
+
+        
+
+        loadCreateRecipeUI: function (selector) {
+            var self = this;
+            var createRecipeUIHtml =
+				ui.createRecipe("Vesi");                      //this.persister.nickname());
+            $(selector).html(createRecipeUIHtml);
+                        
+        },
+
+        attachUIEventHandlers: function (selector) {
+            var wrapper = $(selector);
+            var self = this;
+
+          // wrapper.on("click", "#btn-show-login", function () {
+          //     wrapper.find(".button.selected").removeClass("selected");
+          //     $(this).addClass("selected");
+          //     wrapper.find("#login-form").show();
+          //     wrapper.find("#register-form").hide();
+          // });
+          //
+          // wrapper.on("click", "#btn-show-register", function () {
+          //     wrapper.find(".button.selected").removeClass("selected");
+          //     $(this).addClass("selected");
+          //     wrapper.find("#register-form").show();
+          //     wrapper.find("#login-form").hide();
+          // });
+          //
+          // wrapper.on("click", "#btn-login", function () {
+          //     var user = {
+          //         username: $(selector + " #tb-login-username").val(),
+          //         password: $(selector + " #tb-login-password").val()
+          //     }
+          //
+          //     self.persister.user.login(user, function () {
+          //         self.loadGameUI(selector);
+          //     }, function (err) {
+          //         wrapper.find("#error-messages").text(err.responseJSON.Message);
+          //     });
+          //     return false;
+          // });
+          // wrapper.on("click", "#btn-register", function () {
+          //     var user = {
+          //         username: $(selector).find("#tb-register-username").val(),
+          //         nickname: $(selector).find("#tb-register-nickname").val(),
+          //         password: $(selector + " #tb-register-password").val()
+          //     }
+          //     self.persister.user.register(user, function () {
+          //         self.loadGameUI(selector);
+          //     }, function (err) {
+          //         wrapper.find("#error-messages").text(err.responseJSON.Message);
+          //     });
+          //     return false;
+          // });
+          // wrapper.on("click", "#btn-logout", function () {
+          //     self.persister.user.logout(function () {
+          //         self.loadLoginFormUI(selector);
+          //         clearInterval(updateTimer);
+          //     }, function (err) {
+          //     });
+          // });
+            wrapper.on("click", "#btn-create-recipe", function () {
+              //  wrapper.find(".button.selected").removeClass("selected");
+                //  $(this).addClass("selected");
+                console.log("create");
+                wrapper.find("#recipe-holder-form").hide();
+                self.loadCreateRecipeUI("#recipe-create-form");
+            });
+            
+
+            wrapper.on("click", "#btn-upload-picture", function () {
+                
+            });
+
+            wrapper.on("click", "#btn-step", function () {
+                //  wrapper.find(".button.selected").removeClass("selected");
+                //  $(this).addClass("selected");
+                wrapper.find("#panel-step").show();
+            });
+
+            wrapper.on("click", "#btn-save-step", function () {
+                
+                var step = {
+                    stepDescription: $(selector + " #tb-description").val(),
+                    stepPreparationTime: $(selector + " #tb-preparation-time").val()
+                }
+                $(selector + " #tb-description").val("");
+                stepPreparationTime: $(selector + " #tb-preparation-time").val("");
+                username: $(selector + " #tb-login-username").val()
+                var html = '<br /><div class="row"> ' +
+                    '<div class="span2 label">' +
+                    'Step: </div><div class="span4">' + step.stepDescription +
+                    '<br />' +
+                    'Preparation time: ' + step.stepPreparationTime
+                    '</div>';
+                $("#preparation-steps").append(html);
+                console.log("save");
+                wrapper.find("#panel-step").hide();
+                
+            });
+
+            wrapper.on("click", "#btn-close-step", function () {
+                wrapper.find("#panel-step").hide();
+            });
         }
     });
     return {
@@ -87,5 +193,5 @@ var controllers = (function() {
 
 $(function () {
     var controller = controllers.get();
-    controller.loadUI("#container");
+    controller.loadUI(".container");
 })

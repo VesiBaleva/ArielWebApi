@@ -183,6 +183,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\CookingController.cs" />
+    <Compile Include="Controllers\DropboxController.cs" />
     <Compile Include="Controllers\FineUpload.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LikesController.cs" />

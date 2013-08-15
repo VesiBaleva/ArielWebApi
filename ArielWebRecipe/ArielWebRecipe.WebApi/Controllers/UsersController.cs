@@ -121,6 +121,9 @@ namespace ArielWebRecipe.WebApi.Controllers
             }
 
             string root = HttpContext.Current.Server.MapPath("~/App_Data/Uploads");
+            //
+            var directory = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "_TemporaryFiles"));
+            root = directory.FullName;
             var provider = new MultipartFormDataStreamProvider(root);
 
             try

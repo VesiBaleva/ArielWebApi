@@ -31,7 +31,7 @@ var controllers = (function () {
 
     var updateTimer = null;
 
-    var rootUrl = "http://localhost:9181/api/";
+    var rootUrl = "http://arialwebapirecipe.apphb.com/api/";
     var defaultSelector = null;
 
     var Controller = Class.create({

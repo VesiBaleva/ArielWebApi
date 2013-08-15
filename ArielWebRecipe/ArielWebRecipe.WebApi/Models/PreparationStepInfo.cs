@@ -13,6 +13,8 @@ namespace ArielWebRecipe.WebApi.Models
 
         public string Description { get; set; }
 
+        public int PreparationTime { get; set; }
+
         public static Expression<Func<PreparationStep, PreparationStepInfo>> FromPreparationStep
         {
             get
@@ -20,7 +22,8 @@ namespace ArielWebRecipe.WebApi.Models
                 return x => new PreparationStepInfo
                 {
                     Order = x.Order,
-                    Description = x.Description
+                    Description = x.Description,
+                    PreparationTime = x.PreparationTime
                 };
             }
         }

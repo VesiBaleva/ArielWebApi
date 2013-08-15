@@ -96,7 +96,7 @@ var persisters = (function () {
         },
         create: function (recipeData, success, error) {
 
-            var url = this.rootUrl + "create/" + sessionKey;
+            var url = this.rootUrl + "add/" + sessionKey;
 
             httpRequester.postJSON(url, recipeData, success, error);
         },

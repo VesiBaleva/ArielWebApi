@@ -14,7 +14,7 @@ var controllers = (function () {
         },
         loadUI: function (selector) {
 
-            if (this.persister.isUserLoggedIn()) {
+            if (this.persister.isUserLoggedIn()&&false) {
                 this.loadGameUI(selector);
             }
             else {
@@ -50,37 +50,60 @@ var controllers = (function () {
                 //console.log("Even on newRequest");
 
                 //self.persister.imageUpload.upload()
+                var newStep = {
+                    Description : "Add an egg",
+                    Order : 1,
+                    PreparationTime: 3
+                }
+
+                var newStep2 = {
+                    Description : "Add an egg",
+                    Order : 2,
+                    PreparationTime: 3
+                }
+
+                var bake = {
+                    Description : "Bake",
+                    Order : 5,
+                    PreparationTime: 5
+                }
+
+                var steps = [];
+                steps.push(newStep);
+                steps.push(newStep2);
+                steps.push(bake);
+
+                var newRecipe = {
+                    Title : "newRecipe",
+                    Steps : steps,
+                }
 
                 var fd = new FormData();
-                fd.append("fileToUpload", $('#file')[0].files[0]);
-                fd.append("myName", "BeboBeboBe");
-                fd.append("ImageName", "newImage.jpg");
+                fd.append("newImage.jpg", $('#file')[0].files[0]);
+                fd.append("Step1", $('#file')[0].files[0]);
+                fd.append("Step2", $('#file')[0].files[0]);
+                fd.append("Recipe", JSON.stringify(newRecipe));
                 fd.append("SessionKey", "SomeSessionKey");
 
-                $.ajax({
-                    url: "http://localhost:9181/api/Users/testUpload",
-                    type: "POST",
-                    data: fd,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        console.log(response);
-                    },
-                    error: function (jqXHR, textStatus, errorMessage) {
-                        console.log(errorMessage); // Optional
-                    }
+                self.persister.recipe.create(newRecipe, function () {
+                    wrapper.find("#error-messages").text(data.responseJSON.Message);
+                }, function (err) {
+                    wrapper.find("#error-messages").text(err.responseJSON.Message);
                 });
-                
 
-                //self.persister.user.test(function (data) {
-                //    wrapper.find("#requestContent").html(JSON.stringify(data));
-                //},
-
-				//function (err) {
-				//    alert(JSON.stringify(err));
-				//});
-
-                //return false;
+                //$.ajax({
+                //    url: "http://localhost:9181/api/Users/testUpload",
+                //    type: "POST",
+                //    data: fd,
+                //    processData: false,
+                //    contentType: false,
+                //    success: function (response) {
+                //        console.log(response);
+                //    },
+                //    error: function (jqXHR, textStatus, errorMessage) {
+                //        console.log(errorMessage); // Optional
+                //    }
+                //});
             });
             
             //User login/logout handlers

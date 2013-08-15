@@ -33,13 +33,28 @@ namespace ArielWebRecipe.WebApi.Models
 
         [HttpPost]
         [ActionName("add")]
-        public void AddRecipe(string sessionKey, [FromBody] Recipe recipe)
+        public void AddRecipe(string sessionKey, [FromBody] RecipeDetails recipeDetails)
         {
+            var newRecipe = new Recipe();
+            newRecipe.Title = recipeDetails.Title;
+
+            foreach (var step in recipeDetails.PreparationSteps)
+            {
+                var newStep = new PreparationStep()
+                {
+                    Description = step.Description,
+                    Order = step.Order,
+                    PreparationTime = step.PreparationTime
+                };
+
+                newRecipe.PreparationSteps.Add(newStep);
+            }
+
             var author = this.userRepository.All().Where(a => a.SessionKey == sessionKey).FirstOrDefault();
             if (author != null)
             {
-                recipe.Author = author;
-                this.recipeRepository.Add(recipe);
+                newRecipe.Author = author;
+                this.recipeRepository.Add(newRecipe);
             }
         }
 

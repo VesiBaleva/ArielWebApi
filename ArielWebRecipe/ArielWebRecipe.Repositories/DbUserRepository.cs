@@ -17,6 +17,7 @@ namespace ArielWebRecipe.Repositories
         public DbUserRepository()
         {
             this.dbContext = new RecipeContext();
+            this.entitySet = this.dbContext.Set<User>();
         }
 
         public DbUserRepository(DbContext dbContext)

@@ -17,6 +17,7 @@ namespace ArielWebRecipe.Repositories
         public DbPreparationStepRepository()
         {
             this.dbContext = new RecipeContext();
+            this.entitySet = this.dbContext.Set<PreparationStep>();
         }
 
         public DbPreparationStepRepository(DbContext dbContext)

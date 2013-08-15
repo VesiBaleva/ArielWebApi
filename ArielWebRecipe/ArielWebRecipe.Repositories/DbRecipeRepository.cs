@@ -1,4 +1,5 @@
-﻿using ArielWebRecipe.Models;
+﻿using ArielWebRecipe.Data;
+using ArielWebRecipe.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -12,6 +13,11 @@ namespace ArielWebRecipe.Repositories
     {
         private DbContext dbContext;
         private DbSet<Recipe> entitySet;
+
+        public DbRecipeRepository()
+        {
+            this.dbContext = new RecipeContext();
+        }
 
         public DbRecipeRepository(DbContext dbContext)
         {

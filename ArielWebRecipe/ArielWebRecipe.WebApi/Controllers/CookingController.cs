@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
+using ArielWebRecipe.WebApi.Libraries;
 
 namespace ArielWebRecipe.WebApi.Controllers
 {
@@ -28,27 +29,10 @@ namespace ArielWebRecipe.WebApi.Controllers
         public void StartCooking(int id, string sessionKey)
         { 
             List<PreparationStep> steps = recipeRepository.Get(id).PreparationSteps.OrderBy(x => x.Order).ToList();
+            string channel = userRepository.All().Where(x => x.SessionKey == sessionKey).FirstOrDefault().Nickname;
 
-            Thread t = new Thread(new ThreadStart(() => PubnubThread(steps, sessionKey)));
+            Thread t = new Thread(new ThreadStart(() => PubnubPublisher.PubnubThread(steps, channel, sessionKey)));
             t.Start();
-        }
-
-        public void PubnubThread(List<PreparationStep> steps, string sessionKey)
-        {
-            PubnubAPI pubnub = new PubnubAPI(
-                    "pub-c-26f81a7d-18b7-4472-976d-f6d6ba477ee0",               // PUBLISH_KEY
-                    "sub-c-8dc89202-0580-11e3-8dc9-02ee2ddab7fe",               // SUBSCRIBE_KEY
-                    "sec-c-ZWMwYzA1N2MtNTRkYy00ZjhkLTg0NGItNTdmMDJhNDA5MWY3",   // SECRET_KEY
-                    true);
-
-            foreach (var step in steps)
-            {
-                Thread.Sleep(step.PreparationTime * 1000);
-                string channel = userRepository.All().Where(x => x.SessionKey == sessionKey).FirstOrDefault().Nickname;
-                string message = "Step " + step.Order + " Completed";
-
-                pubnub.Publish(channel, message);
-            }
         }
     }
 }

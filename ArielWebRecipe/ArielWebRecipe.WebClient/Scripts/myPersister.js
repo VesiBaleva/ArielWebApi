@@ -70,7 +70,11 @@ var persisters = (function () {
             };
             httpRequester.postJSON(url, userData,
 				function (data) {
-				    saveUserData(data);
+				    var UserData = {
+                            Nickname: user.nickname,
+                            SessionKey: data
+                        };
+				    saveUserData(UserData);
 				    success(data);
 				}, error);
         },

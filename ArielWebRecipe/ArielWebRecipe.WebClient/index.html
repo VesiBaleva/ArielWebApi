@@ -31,6 +31,24 @@
     </style>    
 </head>
 <body>
+    <div 
+        pub-key="pub-c-26f81a7d-18b7-4472-976d-f6d6ba477ee0" 
+        sub-key="sub-c-8dc89202-0580-11e3-8dc9-02ee2ddab7fe" 
+        ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
+    <script src="http://cdn.pubnub.com/pubnub-3.5.3.min.js"></script>
+    <script>
+        (function () {
+            document.write("")
+            PUBNUB.subscribe({
+                channel: nicknameSave,
+                callback: function (message) {
+                    alert(message);
+                    // Received a message --> print it in the page
+                    //document.getElementById('messagesArea').innerHTML += message + '\n';
+                }
+            });
+        })();
+    </script>
     <div id="wrapper">
         <header>
             <h1>Ariel Web Recipe Application</h1>

@@ -1,6 +1,8 @@
 ﻿/// <reference path="http-requester.js" />
 /// <reference path="class.js" />
 /// <reference path="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js" />
+var nicknameSave = "";
+
 var persisters = (function () {
     var nickname = localStorage.getItem("nickname");
     var sessionKey = localStorage.getItem("sessionKey");
@@ -10,12 +12,14 @@ var persisters = (function () {
         localStorage.setItem("sessionKey", userData.SessionKey);
         nickname = userData.Nickname;
         sessionKey = userData.SessionKey;
+        nicknameSave = nickname;
     }
     function clearUserData() {
         localStorage.removeItem("nickname");
         localStorage.removeItem("sessionKey");
         nickname = "";
         sessionKey = "";
+        nicknameSave = "";
     }
 
     var MainPersister = Class.create({

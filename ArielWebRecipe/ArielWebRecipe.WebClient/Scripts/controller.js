@@ -237,7 +237,9 @@ var controllers = (function() {
 
             //Search
             wrapper.on("click", "#btn-search", function () {
+
                 var queryString = wrapper.find("#input-field").val();
+                console.log("Searching for " + queryString);
                 if (queryString) {
                     self.persister.recipe.search(queryString, function (data) {
                         var list = ui.recipesList(data);

@@ -88,12 +88,12 @@
 
     function buildUserOperationUI(nickname) {
         var html =
-		    '<form class="form-search">' +
+//		    '<form class="form-search">' +
                   '<div>' +
                       '<input type="text" id = "input-field" class="input-medium search-query" />' +
                       '<button  class="btn" id="btn-search">Search</button>' +
                   '</div>' +
-            '</form>' +
+  //          '</form>' +
             '<div>' +
                 '<button id="btn-create-recipe" class="btn btn-large btn-block" type="button">Create recipe</button>' +
             '</div>';

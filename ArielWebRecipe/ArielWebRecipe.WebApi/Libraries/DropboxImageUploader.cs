@@ -15,35 +15,32 @@ namespace ArielWebRecipe.WebApi.Libraries
     {
         private const string DropboxAppKey = "05yz5fr8rr16fr7";
         private const string DropboxAppSecret = "dkg4rqm9o5sog67";
-        private const string OAuthTokenFileName = "OAuthTokenFileName.txt";
+        private const string DropboxAuthKey = "nl5b0j3q75ts3a66";
+        private const string DropboxAuthSecret = "1kfagfbn8huy7qg";
+        private const string OAuthTokenFileName = "c:\\OAuthTokenFileName.txt";
         private const string FolderName = "data";
 
         public static string Upload(string filePath)
         {
             DropboxServiceProvider dropboxServiceProvider =
-                new DropboxServiceProvider(DropboxAppKey, DropboxAppSecret, AccessLevel.AppFolder);
-
-            // Authenticate the application (if not authenticated) and load the OAuth token
-            if (!File.Exists(OAuthTokenFileName))
-            {
-                AuthorizeAppOAuth(dropboxServiceProvider);
-            }
-            OAuthToken oauthAccessToken = LoadOAuthToken();
+            new DropboxServiceProvider(DropboxAppKey, DropboxAppSecret, AccessLevel.AppFolder);
 
             // Login in Dropbox
-            IDropbox dropbox = dropboxServiceProvider.GetApi(oauthAccessToken.Value, oauthAccessToken.Secret);
+            IDropbox dropbox = dropboxServiceProvider.GetApi(DropboxAuthKey, DropboxAuthSecret);
 
             // Display user name (from his profile)
             DropboxProfile profile = dropbox.GetUserProfileAsync().Result;
-            // Create new folder
+            Console.WriteLine("Hi " + profile.DisplayName + "!");
+
 
             // Upload a file
-            Entry uploadFileEntry = dropbox.UploadFileAsync(
-                new FileResource(filePath),
-                "/" + FolderName).Result;
+            Entry uploadFileEntry = dropbox.UploadFileAsync(new FileResource(filePath), "/pics/" + Guid.NewGuid().ToString() + ".jpg").Result;
+            Console.WriteLine("Uploaded a file: {0}", uploadFileEntry.Path);
 
             // Share a file
-            DropboxLink sharedUrl = dropbox.GetShareableLinkAsync(uploadFileEntry.Path).Result;
+            DropboxLink sharedUrl = dropbox.GetMediaLinkAsync(uploadFileEntry.Path).Result;
+
+             
             return sharedUrl.Url;
         }
 

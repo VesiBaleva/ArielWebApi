@@ -14,8 +14,8 @@ var controllers = (function () {
         var gameUIHtml = "<h1>Logged in!!!</h1><button id='newRequest'>Get</button>" +
                         "<br />" +
                         "<div id='requestContent'></div>" +
-         "<br />" +
-         "<button id='btn-logout'>Log Out</button>";
+                         "<br />" +
+                         "<button id='btn-logout'>Log Out</button>";
 
         $(selector).html(gameUIHtml);
     }
@@ -101,16 +101,7 @@ var controllers = (function () {
                     PreparationSteps: steps,
                 }
 
-                //Check input Files
-                var recipeImage = $('#file')[0].files[0];
-                var recipeImageName = $('#file')[0].value;
-                var recipeImageExtension = recipeImageName.substring(recipeImageName.length - 4);
-                console.log(recipeImageExtension);
-
-                var fd = new FormData();
-                fd.append(recipeImageExtension, recipeImage);
-                fd.append("Recipe", JSON.stringify(newRecipe));
-                fd.append("SessionKey", "SomeSessionKey");
+                
 
                 self.persister.recipe.create(newRecipe, function (data) {
                     //wrapper.find("#error-messages").text(data.responseJSON.Message);
@@ -118,19 +109,30 @@ var controllers = (function () {
                     //wrapper.find("#error-messages").text(err.responseJSON.Message);
                 });
 
-                //$.ajax({
-                //    url: "http://localhost:9181/api/Users/testUpload",
-                //    type: "POST",
-                //    data: fd,
-                //    processData: false,
-                //    contentType: false,
-                //    success: function (response) {
-                //        console.log(response);
-                //    },
-                //    error: function (jqXHR, textStatus, errorMessage) {
-                //        console.log(errorMessage); // Optional
-                //    }
-                //});
+                //Check input Files
+                var recipeImage = $('#file')[0].files[0];
+                var recipeImageName = $('#file')[0].value;
+                var recipeImageExtension = recipeImageName.substring(recipeImageName.length - 4);
+
+                var fd = new FormData();
+                fd.append(recipeImageExtension, recipeImage);
+                fd.append("Recipe", JSON.stringify(newRecipe));
+                fd.append("SessionKey", "SomeSessionKey");
+
+                $.ajax({
+                    url: "http://localhost:9181/api/Users/testUpload",
+                    type: "POST",
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function (jqXHR, textStatus, errorMessage) {
+                        console.log(errorMessage); // Optional
+                    }
+                });
+
             });
             
             //User login/logout handlers

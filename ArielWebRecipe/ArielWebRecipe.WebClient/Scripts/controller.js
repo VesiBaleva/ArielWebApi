@@ -52,9 +52,12 @@ var controllers = (function() {
             var recipe_list = [];
 
             for (var i = 0; i < 9; i++) {
-                recipeExample.id = i + 1;
-                recipeExample.title += i;
-                recipe_list.push(recipeExample);
+                var p = {
+                    id: i + 1,
+                    title: "Title" + i,
+                    pictureLink: "img/images.jpg"
+                }
+                recipe_list.push(p);
             }
 
             var list = ui.recipesList(recipe_list);
@@ -88,9 +91,31 @@ var controllers = (function() {
         },
 
         loadRecipeDetailsUI: function (selector) {
+            var recipe = {
+                "Title": "Musaka",
+                "Picture":"img/images.jpg",
+                "Steps": [{
+                    "Description": "Naryzvane na zelenchuci",
+                    "Picture": "img/images.jpg",
+                    "PreparationTime":10
+                },
+                {
+                    "Description": "Pechene",
+                    "Picture": "img/pechene.jpg",
+                    "PreparationTime":120
+                }],
+                "Comments": [{
+                    "UserName": "Pesho",
+                    "Content": "Mnogo hubava"
+                },
+                {
+                    "UserName": "Gosho",
+                    "Content": "Oshte po hubava"
+                }]
+            }
             var self = this;
             var recipeDetailsUIHtml =
-				ui.recipeDetailsUI("Vesi");                      //this.persister.nickname());
+				ui.recipeDetailsUI(recipe);                      //this.persister.nickname());
             $(selector).html(recipeDetailsUIHtml);
 
         },
@@ -199,6 +224,18 @@ var controllers = (function() {
                 wrapper.find("#panel-step").hide();
 
             });
+
+
+            wrapper.on("click", "#btn-submit-like", function () {
+
+
+            });
+
+            wrapper.on("click", "#btn-submit-comment", function () {
+
+
+            });
+
         }
     });
     return {

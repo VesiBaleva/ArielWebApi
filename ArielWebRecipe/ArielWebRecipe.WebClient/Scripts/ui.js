@@ -2,29 +2,30 @@
 
     function buildLoginForm() {
         var html = 
-            '<div id="login-form-holder">' +
-				'<form>' +
-					'<div id="login-form">' +
-						'<label for="tb-login-username">Username: </label>' +
-						'<input type="text" id="tb-login-username"><br />' +
-						'<label for="tb-login-password">Password: </label>' +
-						'<input type="text" id="tb-login-password"><br />' +
-						'<button id="btn-login" class="button">Login</button>' +
-					'</div>' +
-					'<div id="register-form" style="display: none">' +
-						'<label for="tb-register-username">Username: </label>' +
-						'<input type="text" id="tb-register-username"><br />' +
-						'<label for="tb-register-nickname">Nickname: </label>' +
-						'<input type="text" id="tb-register-nickname"><br />' +
-						'<label for="tb-register-password">Password: </label>' +
-						'<input type="text" id="tb-register-password"><br />' +
-						'<button id="btn-register" class="button">Register</button>' +
-					'</div>' +
-					'<a href="#" id="btn-show-login" class="button selected">Login</a>' +
-					'<a href="#" id="btn-show-register" class="button">Register</a>' +
-				'</form>' +
-				'<div id="error-messages"></div>' +
-            '</div>';
+             '<div class="span4">' +
+      '<form class="form-signin">'+
+   '     <h2 class="form-signin-heading">Please sign in</h2>'+
+   '     <input type="text" class="input-block-level" placeholder="Email address">'+
+   '     <input type="password" class="input-block-level" placeholder="Password">'+
+   '     <button class="btn btn-large btn-primary" type="submit">Sign in</button>'+
+   '   </form>'+
+   ' </div>'+
+   ' </div>';
+        return html;
+    }
+
+    function buildRegisterForm() {
+        var html =
+             '<div class="span4">' +
+      '<form class="form-signin">' +
+   '     <h2 class="form-signin-heading">Please register</h2>' +
+   '     <input type="text" class="input-block-level" placeholder="Email address">' +
+   '     <input type="text" class="input-block-level" placeholder="Nickname">' +
+   '     <input type="password" class="input-block-level" placeholder="Password">' +
+   '     <button class="btn btn-large btn-primary" type="submit">Register</button>' +
+   '   </form>' +
+   ' </div>' +
+   ' </div>';
         return html;
     }
 
@@ -52,18 +53,23 @@
 
     function buildRecipesList(recipes) {
         var list = '';
-        for (var i = 0; i < recipes.length/3; i++) {
-            list += '<div class="row-fluid">';
-            for (var j = 0; j < recipes.length / 3; j++) {
-                var recipe = recipes[i,j];
-                list +=
-                    '<div class="span4" data-recipe-id="' + recipe.id + '">' +
-                        '<h3><a href="#" id="btn-recipe">' + $("<div> /").html(recipe.title).text() + '</a></h3>' +
-                        '<img src="' + $("<div />").html(recipe.pictureLink).text() + '" class="img-polaroid" />' +
-                    '</div>';
+        var number = 0;
+            for (var i = 0; i < 3; i++) {
+                list += '<div class="row-fluid">';
+                for (var j = 0; j < 3; j++) {
+                    var recipe = recipes[number];
+                    list +=
+                        '<div class="span4" data-recipe-id="' + recipe.id + '">' +
+                            '<h3><a href="#" id="btn-recipe">' + $("<div> /").html(recipe.title).text() + '</a></h3>' +
+                            '<img src="' + $("<div />").html(recipe.pictureLink).text() + '" class="img-polaroid" />' +
+                        '</div>';
+
+                    number++;
+                }
+                list += '</div>';
             }
-            list += '</div>';
-        }
+        
+        
         list +=
             '<div class="row-fluid">' +
                     '<ul class="pager">' +
@@ -121,14 +127,68 @@
         return html;
     }
 
-    function buildRecipeDetailsUI(nickname) {
-        var html =
-            '<h2>Recipe</h2>';
+    function buildRecipeDetailsUI(recipe) {
+        var html =''+            
+            '<h2>' + recipe.Title + '</h2>' +
+            '<div class="row">' +
+            '<div class="span2">' +
+            '<div><img src="' + recipe.Picture + '" class="img-circle" /></div>' +
+            '<div><br />' +
+            '<button class="btn btn-primary" id="btn-submit-like">Like</button>' +
+            '</div>'+
+            '</div>' +
+        '<div class="span8">'+
+        '<div class="tabbable tabs-right"> ' +
+        '<ul class="nav nav-tabs"> ';
+        for (var i = 0; i < recipe.Steps.length; i++) {
+            if (i === 0) {
+                html += ' <li class="active"><a href="#' + (i+1) + '" data-toggle="tab">Step '+ (i+1) +'</a></li> ';
+            }
+            else {
+                html += ' <li class=""><a href="#' + (i+1) + '" data-toggle="tab">Step ' + (i+1) + '</a></li> ';
+            }
+        }
+        html +=
+        '  </ul> ' +
+        '  <div class="tab-content"> ';
+        for (var j = 0; j < recipe.Steps.length; j++) {
+            if (j === 0) {
+                html +=
+                '    <div class="tab-pane active" id="' + (j+1) + '"> ' +
+                '      <h4>Step ' + (j+1) + '&nbsp; Description </h4>' +
+                '<p>' + recipe.Steps[j].Description + '&nbsp; Time: '+ recipe.Steps[j].PreparationTime +'min. </p>' +
+                '    <p><img src="' + recipe.Steps[j].Picture + '" class="img-rounded picSteps" /></p></div> ';
+            }
+            else {
+                html +=
+                '    <div class="tab-pane" id="' + (j+1) + '"> ' +
+                '      <h4>Step ' + (j+1) + '&nbsp; Description</h4> ' +
+                '<p>' + recipe.Steps[j].Description + '&nbsp; Time: ' + recipe.Steps[j].PreparationTime + 'min. </p>' +
+                '    <p><img src="' + recipe.Steps[j].Picture + '" class="img-rounded picSteps" /></p></div> ';
+            }
+        }
+        html +=
+         '  </div>' +
+         '</div> ' +
+                '<h4>Comments: </h4>' +
+                    '<div>';
+                for (var p = 0; p < recipe.Comments.length; p++) {
+                    html +=
+                        '<p><h5>' + recipe.Comments[p].UserName + ':</h5> &nbsp; ' + recipe.Comments[p].Content + '</p>';
+                }
+                html += '</div>' +
+                '<label for="new-comment"><h4>Add Comment:</h4></label>' +
+                '<textarea id="new-comment" rows="10" class="span6"></textarea>' +
+                '<br />' +
+                '<button class="btn btn-primary" id="btn-submit-comment">Submit comment</button>' +
+                '</div>' +
+         '</div>';
 
         return html;
     }
 
     return {
+        registerForm:buildRegisterForm,
         loginForm:buildLoginForm,
         mainUI:buildMainUI,
         recipesList:buildRecipesList,

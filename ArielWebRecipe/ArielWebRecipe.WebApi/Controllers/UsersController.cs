@@ -120,10 +120,10 @@ namespace ArielWebRecipe.WebApi.Controllers
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
 
-            string root = HttpContext.Current.Server.MapPath("~/App_Data/Uploads");
+            string root = HttpContext.Current.Request.ServerVariables["APPL_PHYSICAL_PATH"];
             //
-            var directory = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "_TemporaryFiles"));
-            root = directory.FullName;
+            //var directory = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "_TemporaryFiles"));
+            //root = directory.ToString();
             var provider = new MultipartFormDataStreamProvider(root);
 
             try

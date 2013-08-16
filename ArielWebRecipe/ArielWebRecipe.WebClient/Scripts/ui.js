@@ -59,9 +59,9 @@
                 for (var j = 0; j < 3; j++) {
                     var recipe = recipes[number];
                     list +=
-                        '<div class="span4" data-recipe-id="' + recipe.id + '">' +
-                            '<h3><a href="#" id="btn-recipe">' + $("<div> /").html(recipe.title).text() + '</a></h3>' +
-                            '<img src="' + $("<div />").html(recipe.pictureLink).text() + '" class="img-polaroid" />' +
+                        '<div class="span4" data-recipe-id="' + recipe.Id + '">' +
+                            '<h3><a href="#" id="btn-recipe">' + $("<div> /").html(recipe.Title).text() + '</a></h3>' +
+                            '<img src="' + $("<div />").html(recipe.PictureLink).text() + '" class="img-polaroid" />' +
                         '</div>';
 
                     number++;
@@ -85,7 +85,7 @@
 		    '<form class="form-search">' +
                   '<div>' +
                       '<input type="text" class="input-medium search-query" />' +
-                      '<button  class="btn">Search</button>' +
+                      '<button  class="btn" id="btn-search">Search</button>' +
                   '</div>' +
             '</form>' +
             '<div>' +

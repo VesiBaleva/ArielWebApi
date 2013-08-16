@@ -1,16 +1,17 @@
 ﻿/// <reference path="class.js" />
 /// <reference path="jquery-2.0.2.js" />
 /// <reference path="ui.js" />
+/// <reference path="myPersister.js" />
 
 var controllers = (function() {
-    var rootUrl = "http://arialwebapirecipe.apphb.com/api/";
+    var rootUrl = "http://localhost:9181/api/";
 
     var updateTimer = null;
 
+
     var Controller = Class.create({
         init: function () {
-            //set on persister
-         //   this.persister = persisters.get(rootUrl);
+            this.persister = persisters.get(rootUrl);
         },
 
         loadUI: function (selector) {
@@ -32,41 +33,51 @@ var controllers = (function() {
         loadMainUI: function (selector) {
             var self = this;
             var mainUIHtml =
-				ui.mainUI("Vesi");                      //this.persister.nickname());
+				ui.mainUI(this.persister.user.getNickname());                      //this.persister.nickname());
             $(selector).html(mainUIHtml);
 
             this.updateUI(selector);
 
-            updateTimer = setInterval(function () {
-               // self.updateUI(selector);
-            }, 15000);
+            //updateTimer = setInterval(function () {
+            //   // self.updateUI(selector);
+            //}, 15000);
         },
 
         updateUI: function (selector) {
-            var recipeExample = {
-                id: "",
-                title: "Title",
-                pictureLink: "img/images.jpg"
-            }
+            var self = this;
+            this.persister.recipe.page(0, function (data) {
+                var list = ui.recipesList(data);
 
-            var recipe_list = [];
+                $(selector + " #recipes-list")
+                    .html(list);
+                var userOperationUIHtml =
+                    ui.userOperationUI(self.persister.user.getNickname());
+                $(selector + " #user-operation").html(userOperationUIHtml);
+            }, function (err) {
+                alert(err);
+            });
 
-            for (var i = 0; i < 9; i++) {
-                var p = {
-                    id: i + 1,
-                    title: "Title" + i,
-                    pictureLink: "img/images.jpg"
-                }
-                recipe_list.push(p);
-            }
+            //var recipeExample = {
+            //    id: "",
+            //    title: "Title",
+            //    pictureLink: "img/images.jpg"
+            //}
 
-            var list = ui.recipesList(recipe_list);
+            //var recipe_list = [];
 
-            $(selector + " #recipes-list")
-                .html(list);
-            var userOperationUIHtml =
-                ui.userOperationUI("Vesi");
-            $(selector + " #user-operation").html(userOperationUIHtml);
+            //for (var i = 0; i < 9; i++) {
+            //    recipeExample.id = i + 1;
+            //    recipeExample.title += i;
+            //    recipe_list.push(recipeExample);
+            //}
+
+            //var list = ui.recipesList(recipe_list);
+
+            //$(selector + " #recipes-list")
+            //    .html(list);
+            //var userOperationUIHtml =
+            //    ui.userOperationUI("Vesi");
+            //$(selector + " #user-operation").html(userOperationUIHtml);
 
             //this.persister.recipesAll(function (recipes) {
                 

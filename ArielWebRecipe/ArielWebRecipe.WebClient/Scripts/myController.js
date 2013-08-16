@@ -87,7 +87,7 @@ var controllers = (function () {
 
                 var bake = {
                     Description : "Bake",
-                    Order : 5,
+                    Order : 3,
                     PreparationTime: 5
                 }
 
@@ -112,11 +112,11 @@ var controllers = (function () {
                 fd.append("Recipe", JSON.stringify(newRecipe));
                 fd.append("SessionKey", "SomeSessionKey");
 
-                //self.persister.recipe.create(newRecipe, function (data) {
-                //    //wrapper.find("#error-messages").text(data.responseJSON.Message);
-                //}, function (err) {
-                //    //wrapper.find("#error-messages").text(err.responseJSON.Message);
-                //});
+                self.persister.recipe.create(newRecipe, function (data) {
+                    //wrapper.find("#error-messages").text(data.responseJSON.Message);
+                }, function (err) {
+                    //wrapper.find("#error-messages").text(err.responseJSON.Message);
+                });
 
                 //$.ajax({
                 //    url: "http://localhost:9181/api/Users/testUpload",

@@ -52,12 +52,18 @@
     }
 
     function buildRecipesList(recipes) {
+        if (recipes.length == 0) {
+            return "<div>Nothing Found</div>";
+        }
         var list = '';
         var number = 0;
             for (var i = 0; i < 3; i++) {
                 list += '<div class="row-fluid">';
                 for (var j = 0; j < 3; j++) {
                     var recipe = recipes[number];
+                    if (!recipe.PictureLink) {
+                        recipe.PictureLink = "img/default.ico";
+                    }
                     list +=
                         '<div class="span4" data-recipe-id="' + recipe.Id + '">' +
                             '<h3><a href="#" id="btn-recipe">' + $("<div> /").html(recipe.Title).text() + '</a></h3>' +
@@ -84,7 +90,7 @@
         var html =
 		    '<form class="form-search">' +
                   '<div>' +
-                      '<input type="text" class="input-medium search-query" />' +
+                      '<input type="text" id = "input-field" class="input-medium search-query" />' +
                       '<button  class="btn" id="btn-search">Search</button>' +
                   '</div>' +
             '</form>' +

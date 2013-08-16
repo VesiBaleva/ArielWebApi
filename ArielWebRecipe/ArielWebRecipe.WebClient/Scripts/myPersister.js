@@ -43,6 +43,9 @@ var persisters = (function () {
             //...api/user/
             this.rootUrl = rootUrl + "users/";
         },
+        getNickname: function () {
+            return nickname;
+        },
         login: function (user, success, error) {
             var url = this.rootUrl + "login";
             var userData = {
@@ -117,6 +120,10 @@ var persisters = (function () {
         },
         page: function (pageNumber, success, error) {
             var url = this.rootUrl + "page/" + pageNumber;
+            httpRequester.getJSON(url, success, error);
+        },
+        search: function (queryString, success, error) {
+            var url = this.rootUrl + "search/" + queryString;
             httpRequester.getJSON(url, success, error);
         },
     });

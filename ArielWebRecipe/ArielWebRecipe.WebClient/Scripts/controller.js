@@ -8,7 +8,6 @@ var controllers = (function() {
 
     var updateTimer = null;
 
-
     var Controller = Class.create({
         init: function () {
             this.persister = persisters.get(rootUrl);
@@ -47,7 +46,7 @@ var controllers = (function() {
             var self = this;
             this.persister.recipe.page(0, function (data) {
                 var list = ui.recipesList(data);
-
+                console.log(JSON.stringify(data));
                 $(selector + " #recipes-list")
                     .html(list);
                 var userOperationUIHtml =
@@ -236,6 +235,23 @@ var controllers = (function() {
 
             });
 
+            //Search
+            wrapper.on("click", "#btn-search", function () {
+                var queryString = wrapper.find("#input-field").val();
+                if (queryString) {
+                    self.persister.recipe.search(queryString, function (data) {
+                        var list = ui.recipesList(data);
+
+                        $(selector + " #recipes-list")
+                            .html(list);
+                        var userOperationUIHtml =
+                            ui.userOperationUI(self.persister.user.getNickname());
+                        $(selector + " #user-operation").html(userOperationUIHtml);
+                    }, function (err) {
+                        alert(err)
+                    });
+                }
+            });
 
             wrapper.on("click", "#btn-submit-like", function () {
 

@@ -46,6 +46,9 @@ var persisters = (function () {
         getNickname: function () {
             return nickname;
         },
+        getSessionKey: function () {
+            return sessionKey;
+        },
         login: function (user, success, error) {
             var url = this.rootUrl + "login";
             var userData = {

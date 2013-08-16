@@ -5,11 +5,21 @@
              '<div class="span4">' +
       '<form class="form-signin">'+
    '     <h2 class="form-signin-heading">Please sign in</h2>'+
-   '     <input type="text" class="input-block-level" placeholder="Email address">'+
-   '     <input type="password" class="input-block-level" placeholder="Password">'+
-   '     <button class="btn btn-large btn-primary" type="submit">Sign in</button>'+
+   '     <input type="text" id="tb-login-username" class="input-block-level" placeholder="UserName">' +
+   '     <input type="password" id="tb-login-password" class="input-block-level" placeholder="Password">' +
+   '     <button id="btn-login" class="btn btn-large btn-primary" type="submit">Sign in</button>' +
    '   </form>'+
    ' </div>'+
+   ' </div>' +
+                         '<div class="span4">' +
+      '<form class="form-signin">' +
+   '     <h2 class="form-signin-heading">Please register</h2>' +
+   '     <input type="text" id="tb-register-username" class="input-block-level" placeholder="Username">' +
+   '     <input type="text" id= "tb-register-nickname" class="input-block-level" placeholder="Nickname">' +
+   '     <input type="password" id="tb-register-password" class="input-block-level" placeholder="Password">' +
+   '     <button id="btn-register" class="btn btn-large btn-primary" type="submit">Register</button>' +
+   '   </form>' +
+   ' </div>' +
    ' </div>';
         return html;
     }
@@ -108,9 +118,9 @@
         '<form>' +
           '<fieldset>' +
             '<legend>Type name</legend>' +
-            '<input type="text" placeholder="Name of the recipe" />' +
+            '<input id="recipe-title" type="text" placeholder="Name of the recipe" />' +
             '<br />' +
-            '<button  class="btn" id="btn-upload-picture">Upload picture</button>' +
+            '<input type="file" id="fileRecipe" name="RecipePic" value= "Upload picture"id="btn-upload-picture" />' +
             '<legend>Preparation steps</legend>' +
                        
           '</fieldset>' +
@@ -128,12 +138,17 @@
                 '<button class="btn" id="btn-close-step">Close</button>' +
             '</div>' +
         '<div id="preparation-steps">' +
-        '</div>';
+        '</div>' +
+        '<button class="btn" id="btn-save-recipe">Save Recipe</button>';
 
         return html;
     }
 
     function buildRecipeDetailsUI(recipe) {
+        if (!recipe.PictureLink) {
+            recipe.PictureLink = "img/default.ico";
+        }
+
         var html =''+            
             '<h2>' + recipe.Title + '</h2>' +
             '<div class="row">' +
@@ -182,17 +197,20 @@
          '</div> ' +
                 '<h4>Comments: </h4>' +
                     '<div>';
-                for (var p = 0; p < recipe.Comments.length; p++) {
-                    html +=
-                        '<p><h5>' + recipe.Comments[p].AuthorName + ':</h5> &nbsp; ' + recipe.Comments[p].Content + '</p>';
-                }
-                html += '</div>' +
-                '<label for="new-comment"><h4>Add Comment:</h4></label>' +
-                '<textarea id="new-comment" rows="10" class="span6"></textarea>' +
-                '<br />' +
-                '<button class="btn btn-primary" id="btn-submit-comment">Submit comment</button>' +
-                '</div>' +
-         '</div>';
+        if (recipe.Comments) {
+            for (var p = 0; p < recipe.Comments.length; p++) {
+                html +=
+                    '<p><h5>' + recipe.Comments[p].AuthorName + ':</h5> &nbsp; ' + recipe.Comments[p].Content + '</p>';
+            }
+            html += '</div>' +
+            '<label for="new-comment"><h4>Add Comment:</h4></label>' +
+            '<textarea id="new-comment" rows="10" class="span6"></textarea>' +
+            '<br />' +
+            '<button class="btn btn-primary" id="btn-submit-comment">Submit comment</button>' +
+            '</div>'
+            };
+                
+         html+='</div>';
 
         return html;
     }

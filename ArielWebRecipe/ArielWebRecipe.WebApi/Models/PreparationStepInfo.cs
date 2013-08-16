@@ -17,6 +17,8 @@ namespace ArielWebRecipe.WebApi.Models
 
         public int PreparationTime { get; set; }
 
+        public string PictureLink { get; set; }
+
         public static Expression<Func<PreparationStep, PreparationStepInfo>> FromPreparationStep
         {
             get
@@ -26,7 +28,8 @@ namespace ArielWebRecipe.WebApi.Models
                     Id = x.Id,
                     Order = x.Order,
                     Description = x.Description,
-                    PreparationTime = x.PreparationTime
+                    PreparationTime = x.PreparationTime,
+                    PictureLink=x.PictureLink
                 };
             }
         }

@@ -53,7 +53,7 @@ var controllers = (function() {
                     ui.userOperationUI(self.persister.user.getNickname());
                 $(selector + " #user-operation").html(userOperationUIHtml);
             }, function (err) {
-                alert(err);
+                alert(JSON.stringify(err));
             });
 
             //var recipeExample = {
@@ -100,32 +100,38 @@ var controllers = (function() {
                         
         },
 
-        loadRecipeDetailsUI: function (selector) {
-            var recipe = {
-                "Title": "Musaka",
-                "Picture":"img/images.jpg",
-                "Steps": [{
-                    "Description": "Naryzvane na zelenchuci",
-                    "Picture": "img/images.jpg",
-                    "PreparationTime":10
-                },
-                {
-                    "Description": "Pechene",
-                    "Picture": "img/pechene.jpg",
-                    "PreparationTime":120
-                }],
-                "Comments": [{
-                    "UserName": "Pesho",
-                    "Content": "Mnogo hubava"
-                },
-                {
-                    "UserName": "Gosho",
-                    "Content": "Oshte po hubava"
-                }]
-            }
+        loadRecipeDetailsUI: function (selector, data) {
+
+            //var recipe = {
+            //    "Title": data.Title,
+            //    "Picture": data.PictureLink?data.PictureLink:"img/default.ico",
+            //    "Steps": [{
+            //        "Description": "Naryzvane na zelenchuci",
+            //        "Picture": "img/images.jpg",
+            //        "PreparationTime":10
+            //    },
+            //    {
+            //        "Description": "Pechene",
+            //        "Picture": "img/pechene.jpg",
+            //        "PreparationTime":120
+            //    }],
+            //    "Comments": [{
+            //        "UserName": "Pesho",
+            //        "Content": "Mnogo hubava"
+            //    },
+            //    {
+            //        "UserName": "Gosho",
+            //        "Content": "Oshte po hubava"
+            //    }]
+            //}
+
+            //for (var i = 0; i < data.steps.length; i++) {
+            //    recipe.Steps[i].Description = data.steps[i].Description;
+            //    recipe
+            //}
             var self = this;
             var recipeDetailsUIHtml =
-				ui.recipeDetailsUI(recipe);                      //this.persister.nickname());
+				ui.recipeDetailsUI(data);                      //this.persister.nickname());
             $(selector).html(recipeDetailsUIHtml);
 
         },
@@ -226,8 +232,15 @@ var controllers = (function() {
                 var recipe = {
                     id: $(this).parent().parent().data("recipe-id")
                 };
-                wrapper.find("#recipe-holder-form").hide();
-                self.loadRecipeDetailsUI("#recipeDetails-holder");
+
+                self.persister.recipe.open((recipe.id)*1, function (data) {
+                    wrapper.find("#recipe-holder-form").hide();
+                    self.loadRecipeDetailsUI("#recipeDetails-holder", data);
+                }, function (err) {
+                    alert(JSON.stringify(err));
+                });
+
+                
             });
 
             wrapper.on("click", "#btn-close-step", function () {
@@ -255,8 +268,7 @@ var controllers = (function() {
                 }
             });
 
-            wrapper.on("click", "#btn-submit-like", function () {
-
+            wrapper.on("click", ".btn-recipe", function () {
 
             });
 

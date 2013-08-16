@@ -115,7 +115,7 @@ var persisters = (function () {
             httpRequester.postJSON(url, recipeId, success, error);
         },
         open: function (recipeId, success, error) {
-            var url = this.rootUrl + recipeId;
+            var url = this.rootUrl +"recipe/"+ recipeId;
             httpRequester.getJSON(url, success, error);
         },
         page: function (pageNumber, success, error) {

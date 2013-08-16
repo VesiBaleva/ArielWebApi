@@ -138,7 +138,7 @@
             '<h2>' + recipe.Title + '</h2>' +
             '<div class="row">' +
             '<div class="span2">' +
-            '<div><img src="' + recipe.Picture + '" class="img-circle" /></div>' +
+            '<div><img src="' + recipe.PictureLink + '" class="img-circle" /></div>' +
             '<div><br />' +
             '<button class="btn btn-primary" id="btn-submit-like">Like</button>' +
             '</div>'+
@@ -146,7 +146,7 @@
         '<div class="span8">'+
         '<div class="tabbable tabs-right"> ' +
         '<ul class="nav nav-tabs"> ';
-        for (var i = 0; i < recipe.Steps.length; i++) {
+        for (var i = 0; i < recipe.PreparationSteps.length; i++) {
             if (i === 0) {
                 html += ' <li class="active"><a href="#' + (i+1) + '" data-toggle="tab">Step '+ (i+1) +'</a></li> ';
             }
@@ -157,20 +157,24 @@
         html +=
         '  </ul> ' +
         '  <div class="tab-content"> ';
-        for (var j = 0; j < recipe.Steps.length; j++) {
+        for (var j = 0; j < recipe.PreparationSteps.length; j++) {
+            if (!recipe.PreparationSteps[j].PictureLink) {
+                recipe.PreparationSteps[j].PictureLink = "img/default.ico";
+            }
             if (j === 0) {
+                
                 html +=
                 '    <div class="tab-pane active" id="' + (j+1) + '"> ' +
                 '      <h4>Step ' + (j+1) + '&nbsp; Description </h4>' +
-                '<p>' + recipe.Steps[j].Description + '&nbsp; Time: '+ recipe.Steps[j].PreparationTime +'min. </p>' +
-                '    <p><img src="' + recipe.Steps[j].Picture + '" class="img-rounded picSteps" /></p></div> ';
+                '<p>' + recipe.PreparationSteps[j].Description + '&nbsp; Time: '+ recipe.PreparationSteps[j].PreparationTime +'min. </p>' +
+                '    <p><img src="' + recipe.PreparationSteps[j].PictureLink + '" class="img-rounded picSteps" /></p></div> ';
             }
             else {
                 html +=
                 '    <div class="tab-pane" id="' + (j+1) + '"> ' +
                 '      <h4>Step ' + (j+1) + '&nbsp; Description</h4> ' +
-                '<p>' + recipe.Steps[j].Description + '&nbsp; Time: ' + recipe.Steps[j].PreparationTime + 'min. </p>' +
-                '    <p><img src="' + recipe.Steps[j].Picture + '" class="img-rounded picSteps" /></p></div> ';
+                '<p>' + recipe.PreparationSteps[j].Description + '&nbsp; Time: ' + recipe.PreparationSteps[j].PreparationTime + 'min. </p>' +
+                '    <p><img src="' + recipe.PreparationSteps[j].PictureLink + '" class="img-rounded picSteps" /></p></div> ';
             }
         }
         html +=
@@ -180,7 +184,7 @@
                     '<div>';
                 for (var p = 0; p < recipe.Comments.length; p++) {
                     html +=
-                        '<p><h5>' + recipe.Comments[p].UserName + ':</h5> &nbsp; ' + recipe.Comments[p].Content + '</p>';
+                        '<p><h5>' + recipe.Comments[p].AuthorName + ':</h5> &nbsp; ' + recipe.Comments[p].Content + '</p>';
                 }
                 html += '</div>' +
                 '<label for="new-comment"><h4>Add Comment:</h4></label>' +

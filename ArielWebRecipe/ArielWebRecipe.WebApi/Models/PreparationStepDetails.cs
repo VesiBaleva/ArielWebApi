@@ -7,6 +7,6 @@ namespace ArielWebRecipe.WebApi.Models
 {
     public class PreparationStepDetails : PreparationStepInfo
     {
-        public string PictureLink { get; set; }
+        
     }
 }

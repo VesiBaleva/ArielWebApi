@@ -13,6 +13,7 @@ using System.IO;
 using System.Text;
 using System.Web;
 using System.Threading.Tasks;
+using ArielWebRecipe.WebApi.Libraries;
 
 namespace ArielWebRecipe.WebApi.Controllers
 {
@@ -100,7 +101,7 @@ namespace ArielWebRecipe.WebApi.Controllers
             string RecipeId = null;
             string SessionKey = null;
             string StepId = null;
-            string ImageName = null;
+            string ImageExtension = null;
 
             // Check if the request contains multipart/form-data. 
             if (!Request.Content.IsMimeMultipartContent())
@@ -123,9 +124,9 @@ namespace ArielWebRecipe.WebApi.Controllers
                 {
                     foreach (var val in provider.FormData.GetValues(key))
                     {
-                        if (key == "ImageName")
+                        if (key == "ImageExtension")
                         {
-                            ImageName = val;
+                            ImageExtension = val;
                         }
                         if (key == "RecipeId")
                         {
@@ -152,9 +153,11 @@ namespace ArielWebRecipe.WebApi.Controllers
                         fileInfo.Name, fileInfo.Length));
 
                     //string rootFixed = root.Replace("/", "\\");
-                    string newName = root + "\\" + SessionKey + RecipeId + StepId + fileInfo.Name;
+                    string newName = root + "\\" + SessionKey + RecipeId + StepId + ImageExtension;
                     
-                    File.Move(fileInfo.FullName, newName);                  
+                    File.Move(fileInfo.FullName, newName);
+
+                    //DropboxImageUploader.Upload(newName);
                 }
 
                 return new HttpResponseMessage()

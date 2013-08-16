@@ -103,11 +103,11 @@ var controllers = (function () {
 
                 
 
-                self.persister.recipe.create(newRecipe, function (data) {
-                    //wrapper.find("#error-messages").text(data.responseJSON.Message);
-                }, function (err) {
-                    //wrapper.find("#error-messages").text(err.responseJSON.Message);
-                });
+                //self.persister.recipe.create(newRecipe, function (data) {
+                //    //wrapper.find("#error-messages").text(data.responseJSON.Message);
+                //}, function (err) {
+                //    //wrapper.find("#error-messages").text(err.responseJSON.Message);
+                //});
 
                 //Check input Files
                 var recipeImage = $('#file')[0].files[0];
@@ -115,23 +115,24 @@ var controllers = (function () {
                 var recipeImageExtension = recipeImageName.substring(recipeImageName.length - 4);
 
                 var fd = new FormData();
-                fd.append(recipeImageExtension, recipeImage);
-                fd.append("Recipe", JSON.stringify(newRecipe));
+                fd.append(recipeImageName, recipeImage);
+                //fd.append("Recipe", JSON.stringify(newRecipe));
                 fd.append("SessionKey", "SomeSessionKey");
+                fd.append("ImageExtension", recipeImageExtension);
 
-                $.ajax({
-                    url: "http://localhost:9181/api/Users/testUpload",
-                    type: "POST",
-                    data: fd,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        console.log(response);
-                    },
-                    error: function (jqXHR, textStatus, errorMessage) {
-                        console.log(errorMessage); // Optional
-                    }
-                });
+                //$.ajax({
+                //    url: "http://localhost:9181/api/Users/testUpload",
+                //    type: "POST",
+                //    data: fd,
+                //    processData: false,
+                //    contentType: false,
+                //    success: function (response) {
+                //        console.log(response);
+                //    },
+                //    error: function (jqXHR, textStatus, errorMessage) {
+                //        console.log(errorMessage); // Optional
+                //    }
+                //});
 
             });
             

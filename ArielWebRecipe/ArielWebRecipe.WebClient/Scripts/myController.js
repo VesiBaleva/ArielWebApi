@@ -5,17 +5,48 @@
 
 var controllers = (function () {
 
+    function loadGameUI(selector) {
+        if (!selector) {
+            selector = defaultSelector;
+        }
+        console.log("Loading Game UI" + selector);
+        var self = this;
+        var gameUIHtml = "<h1>Logged in!!!</h1><button id='newRequest'>Get</button>" +
+                        "<br />" +
+                        "<div id='requestContent'></div>" +
+         "<br />" +
+         "<button id='btn-logout'>Log Out</button>";
+
+        $(selector).html(gameUIHtml);
+    }
+
+    function loadLoginFormUI(selector) {
+        console.log("Loading LogIN");
+        if (!selector) {
+            selector = defaultSelector;
+        }
+        var loginFormHtml = ui.loginForm()
+        $(selector).html(loginFormHtml);
+    }
+
     var updateTimer = null;
 
     var rootUrl = "http://localhost:9181/api/";
+    var defaultSelector = null;
+
     var Controller = Class.create({
         init: function () {
             this.persister = persisters.get(rootUrl);
         },
         loadUI: function (selector) {
+            defaultSelector = selector;
 
-            if (this.persister.isUserLoggedIn()&&false) {
-                this.loadGameUI(selector);
+            if (this.persister.isUserLoggedIn()) {
+                this.persister.user.checkSessionKey(function () {
+                    loadGameUI();
+                }, function () {
+                    loadLoginFormUI(selector);
+                });
             }
             else {
                 this.loadLoginFormUI(selector);
@@ -26,19 +57,11 @@ var controllers = (function () {
         },
 
         loadLoginFormUI: function (selector) {
-            var loginFormHtml = ui.loginForm()
-            $(selector).html(loginFormHtml);
+            loadLoginFormUI(selector);
         },
 
         loadGameUI: function (selector) {
-            var self = this;
-            var gameUIHtml = "<h1>Logged in!!!</h1><button id='newRequest'>Get</button>" +
-                            "<br />" +
-                            "<div id='requestContent'></div>" +
-             "<br />" +
-             "<button id='btn-logout'>Log Out</button>";
-				
-            $(selector).html(gameUIHtml);
+            loadGameUI(selector);
         },
 
         attachUIEventHandlers: function (selector) {
@@ -78,18 +101,22 @@ var controllers = (function () {
                     PreparationSteps: steps,
                 }
 
+                //Check input Files
+                var recipeImage = $('#file')[0].files[0];
+                var recipeImageName = $('#file')[0].value;
+                var recipeImageExtension = recipeImageName.substring(recipeImageName.length - 4);
+                console.log(recipeImageExtension);
+
                 var fd = new FormData();
-                fd.append("newImage.jpg", $('#file')[0].files[0]);
-                fd.append("Step1", $('#file')[0].files[0]);
-                fd.append("Step2", $('#file')[0].files[0]);
+                fd.append(recipeImageExtension, recipeImage);
                 fd.append("Recipe", JSON.stringify(newRecipe));
                 fd.append("SessionKey", "SomeSessionKey");
 
-                self.persister.recipe.create(newRecipe, function (data) {
-                    //wrapper.find("#error-messages").text(data.responseJSON.Message);
-                }, function (err) {
-                    //wrapper.find("#error-messages").text(err.responseJSON.Message);
-                });
+                //self.persister.recipe.create(newRecipe, function (data) {
+                //    //wrapper.find("#error-messages").text(data.responseJSON.Message);
+                //}, function (err) {
+                //    //wrapper.find("#error-messages").text(err.responseJSON.Message);
+                //});
 
                 //$.ajax({
                 //    url: "http://localhost:9181/api/Users/testUpload",

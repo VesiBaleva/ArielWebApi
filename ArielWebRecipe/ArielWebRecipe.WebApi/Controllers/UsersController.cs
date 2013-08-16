@@ -82,6 +82,17 @@ namespace ArielWebRecipe.WebApi.Controllers
             return userRepository.All();
         }
 
+        [HttpGet]
+        [ActionName("checkSessionKey")]
+        public void CheckSessionKey(string sessionKey)
+        {
+            var loggedUser = userRepository.All().Where(u => u.SessionKey == sessionKey).FirstOrDefault();
+            if (loggedUser == null)
+            {
+                throw new ApplicationException("Another Log In required.");
+            }
+        }
+
         [HttpPost]
         [ActionName("testUpload")]
         public async Task<HttpResponseMessage> TestUpload()
@@ -141,7 +152,7 @@ namespace ArielWebRecipe.WebApi.Controllers
                         fileInfo.Name, fileInfo.Length));
 
                     //string rootFixed = root.Replace("/", "\\");
-                    string newName = root + "\\" + SessionKey + ImageName;
+                    string newName = root + "\\" + SessionKey + RecipeId + StepId + fileInfo.Name;
                     
                     File.Move(fileInfo.FullName, newName);                  
                 }

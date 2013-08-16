@@ -80,10 +80,10 @@ namespace ArielWebRecipe.WebApi.Models
 
         [HttpGet]
         [ActionName("page")]
-        public ICollection<RecipeInfo> GetPage(int sessionKey)
+        public ICollection<RecipeInfo> GetPage(int pageNumber)
         {
             var recipeList = recipeRepository.All().
-                OrderByDescending(x => x.Users.Count).Skip(sessionKey * RECIPE_ON_PAGE_COUNT).Take(RECIPE_ON_PAGE_COUNT);
+                OrderByDescending(x => x.Users.Count).Skip(pageNumber * RECIPE_ON_PAGE_COUNT).Take(RECIPE_ON_PAGE_COUNT);
             ICollection<RecipeInfo> recipeInfoList = new List<RecipeInfo>();
 
             foreach (var recipe in recipeList)

@@ -11,7 +11,6 @@ var httpRequester = (function () {
 		});
 	}
 	function postJSON(url, data, success, error) {
-	    console.log("logging...");
 		$.ajax({
 			url: url,
 			type: "POST",

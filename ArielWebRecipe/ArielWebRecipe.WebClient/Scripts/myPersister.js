@@ -27,11 +27,11 @@ var persisters = (function () {
             this.imageUpload = new ImageUploadPersister(this.rootUrl);
         },
         isUserLoggedIn: function () {
-            var isLoggedIn = nickname != null && sessionKey != null && (typeof sessionKey !== "undefined");
+            var isSessionKeyAvailable = nickname != null && sessionKey != null && (typeof sessionKey !== "undefined");
 
-            console.log(isLoggedIn);
+            console.log(isSessionKeyAvailable);
 
-            return isLoggedIn;
+            return isSessionKeyAvailable;
         },
 
         nickname: function () {
@@ -82,6 +82,13 @@ var persisters = (function () {
                 success(data);
             }, error)
         },
+        checkSessionKey: function (success, error) {
+            var url = this.rootUrl + "checkSessionKey/" + sessionKey;
+            httpRequester.getJSON(url, success, function () {
+                error();
+                clearUserData();
+            })
+        },
         test: function (success, error) {
             var url = this.rootUrl + "test";
             httpRequester.getJSON(url, function (data) {
@@ -106,6 +113,10 @@ var persisters = (function () {
         },
         open: function (recipeId, success, error) {
             var url = this.rootUrl + recipeId;
+            httpRequester.getJSON(url, success, error);
+        },
+        page: function (pageNumber, success, error) {
+            var url = this.rootUrl + "page/" + pageNumber;
             httpRequester.getJSON(url, success, error);
         },
     });

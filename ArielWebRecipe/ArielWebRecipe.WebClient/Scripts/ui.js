@@ -45,7 +45,8 @@
                 '</div>' +
             '</div>' +
             '</div>'+
-            '<div id="recipe-create-form"></div>';
+            '<div id="recipe-create-form"></div>' +
+            '<div id="recipeDetails-holder"></div>';
         return html;
     }
 
@@ -57,7 +58,7 @@
                 var recipe = recipes[i,j];
                 list +=
                     '<div class="span4" data-recipe-id="' + recipe.id + '">' +
-                        '<h3><a href="#" >' + $("<div> /").html(recipe.title).text() + '</a></h3>' +
+                        '<h3><a href="#" id="btn-recipe">' + $("<div> /").html(recipe.title).text() + '</a></h3>' +
                         '<img src="' + $("<div />").html(recipe.pictureLink).text() + '" class="img-polaroid" />' +
                     '</div>';
             }
@@ -120,12 +121,20 @@
         return html;
     }
 
+    function buildRecipeDetailsUI(nickname) {
+        var html =
+            '<h2>Recipe</h2>';
+
+        return html;
+    }
+
     return {
         loginForm:buildLoginForm,
         mainUI:buildMainUI,
         recipesList:buildRecipesList,
         userOperationUI: buildUserOperationUI,
-        createRecipe:buildCreateRecipeUI
+        createRecipe: buildCreateRecipeUI,
+        recipeDetailsUI:buildRecipeDetailsUI
     }
 
 }());

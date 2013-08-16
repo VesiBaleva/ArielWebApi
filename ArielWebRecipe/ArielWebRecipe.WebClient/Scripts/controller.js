@@ -87,6 +87,14 @@ var controllers = (function() {
                         
         },
 
+        loadRecipeDetailsUI: function (selector) {
+            var self = this;
+            var recipeDetailsUIHtml =
+				ui.recipeDetailsUI("Vesi");                      //this.persister.nickname());
+            $(selector).html(recipeDetailsUIHtml);
+
+        },
+
         attachUIEventHandlers: function (selector) {
             var wrapper = $(selector);
             var self = this;
@@ -178,8 +186,18 @@ var controllers = (function() {
                 
             });
 
+            wrapper.on("click", "#btn-recipe", function () {
+
+                var recipe = {
+                    id: $(this).parent().parent().data("recipe-id")
+                };
+                wrapper.find("#recipe-holder-form").hide();
+                self.loadRecipeDetailsUI("#recipeDetails-holder");
+            });
+
             wrapper.on("click", "#btn-close-step", function () {
                 wrapper.find("#panel-step").hide();
+
             });
         }
     });

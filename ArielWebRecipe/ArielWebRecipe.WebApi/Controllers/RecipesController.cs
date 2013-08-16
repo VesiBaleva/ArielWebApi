@@ -153,6 +153,84 @@ namespace ArielWebRecipe.WebApi.Models
             return recipies;
         }
 
+
+        [HttpGet]
+        [ActionName("upload")]
+        async Task<HttpResponseMessage> Upload(string queryString)
+        {
+            string RecipeId = null;
+            string SessionKey = null;
+            string StepId = null;
+            string ImageExtension = null;
+
+            // Check if the request contains multipart/form-data. 
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+            string root = HttpContext.Current.Server.MapPath("~/App_Data/Uploads");
+            var provider = new MultipartFormDataStreamProvider(root);
+
+            try
+            {
+                StringBuilder sb = new StringBuilder(); // Holds the response body 
+
+                // Read the form data and return an async task. 
+                await Request.Content.ReadAsMultipartAsync(provider);
+
+                // This illustrates how to get the form data. 
+                foreach (var key in provider.FormData.AllKeys)
+                {
+                    foreach (var val in provider.FormData.GetValues(key))
+                    {
+                        if (key == "ImageExtension")
+                        {
+                            ImageExtension = val;
+                        }
+                        if (key == "RecipeId")
+                        {
+                            RecipeId = val;
+                        }
+                        if (key == "SessionKey")
+                        {
+                            SessionKey = val;
+                        }
+                        if (key == "StepId")
+                        {
+                            StepId = val;
+                        }
+                        sb.Append(string.Format("{0}: {1}\r\n", key, val));
+                    }
+                }
+
+                // This illustrates how to get the file names for uploaded files. 
+                foreach (var file in provider.FileData)
+                {
+                    FileInfo fileInfo = new FileInfo(file.LocalFileName);
+
+                    sb.Append(string.Format("Uploaded file: {0} ({1} bytes)\n",
+                        fileInfo.Name, fileInfo.Length));
+
+                    //string rootFixed = root.Replace("/", "\\");
+                    string newName = root + "\\" + SessionKey + RecipeId + StepId + ImageExtension;
+
+                    File.Move(fileInfo.FullName, newName);
+
+                    //DropboxImageUploader.Upload(newName);
+                }
+
+                return new HttpResponseMessage()
+                {
+                    Content = new StringContent(sb.ToString())
+                };
+            }
+            catch (System.Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+            }
+        }
+
         //[HttpGet]
         //[ActionName("page")]
         //public HttpResponseMessage GetRecipe(int sessionKey, int id)

@@ -56,6 +56,19 @@ var controllers = (function () {
             //this.loadBaseUI(selector);
         },
 
+        loadMainUI: function (selector) {
+            var self = this;
+            var mainUIHtml =
+				ui.mainUI("Vesi");                      //this.persister.nickname());
+            $(selector).html(mainUIHtml);
+
+            this.updateUI(selector);
+
+            updateTimer = setInterval(function () {
+                // self.updateUI(selector);
+            }, 15000);
+        },
+
         loadLoginFormUI: function (selector) {
             loadLoginFormUI(selector);
         },

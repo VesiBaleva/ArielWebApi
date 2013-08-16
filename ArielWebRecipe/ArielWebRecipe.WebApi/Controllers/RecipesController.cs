@@ -142,6 +142,17 @@ namespace ArielWebRecipe.WebApi.Models
             return stepsInfo.OrderBy(x => x.Order).ToList();
         }
 
+        [HttpGet]
+        [ActionName("search")]
+        public IEnumerable<Recipe> Search(string queryString)
+        {
+            var recipies = (from recipes in recipeRepository.All()
+                           where recipes.Title.Contains(queryString)
+                                select recipes).Take(RECIPE_ON_PAGE_COUNT).OrderByDescending(x=>x.Users.Count);
+
+            return recipies;
+        }
+
         //[HttpGet]
         //[ActionName("page")]
         //public HttpResponseMessage GetRecipe(int sessionKey, int id)

@@ -4,9 +4,13 @@ using ArielWebRecipe.Repositories;
 using ArielWebRecipe.WebApi.Libraries;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace ArielWebRecipe.WebApi.Controllers
@@ -25,15 +29,106 @@ namespace ArielWebRecipe.WebApi.Controllers
 
         [HttpPost]
         [ActionName("upload")]
-        public void Upload(int id, string sessionKey, [FromBody] string path)
+        async Task<HttpResponseMessage> Upload()
         {
-            var user = userRepository.All().Where(x => x.SessionKey == sessionKey).FirstOrDefault();
-            if (user != null)
+            string RecipeId = null;
+            string SessionKey = null;
+            string StepId = null;
+            string ImageExtension = null;
+
+            Recipe targetRecipe;
+
+            // Check if the request contains multipart/form-data. 
+            if (!Request.Content.IsMimeMultipartContent())
             {
-                string link = DropboxImageUploader.Upload(path);
-                var recipe = this.recipeRepository.Get(id);
-                recipe.PictureLink = link;
-                this.recipeRepository.Update(recipe.Id, recipe);
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+            string root = HttpContext.Current.Server.MapPath("~/App_Data/Uploads");
+            var provider = new MultipartFormDataStreamProvider(root);
+
+            try
+            {
+                StringBuilder sb = new StringBuilder(); // Holds the response body 
+
+                // Read the form data and return an async task. 
+                await Request.Content.ReadAsMultipartAsync(provider);
+
+                // This illustrates how to get the form data. 
+                foreach (var key in provider.FormData.AllKeys)
+                {
+                    foreach (var val in provider.FormData.GetValues(key))
+                    {
+                        if (key == "ImageExtension")
+                        {
+                            ImageExtension = val;
+                        }
+                        if (key == "RecipeId")
+                        {
+                            RecipeId = val;
+                        }
+                        if (key == "SessionKey")
+                        {
+                            SessionKey = val;
+                        }
+                        if (key == "StepId")
+                        {
+                            StepId = val;
+                        }
+                        sb.Append(string.Format("{0}: {1}\r\n", key, val));
+                    }
+                }
+
+                // This illustrates how to get the file names for uploaded files. 
+                foreach (var file in provider.FileData)
+                {
+                    FileInfo fileInfo = new FileInfo(file.LocalFileName);
+
+                    sb.Append(string.Format("Uploaded file: {0} ({1} bytes)\n",
+                        fileInfo.Name, fileInfo.Length));
+
+                    //string rootFixed = root.Replace("/", "\\");
+                    string newName = root + "\\" + SessionKey + RecipeId + StepId + ImageExtension;
+
+                    File.Move(fileInfo.FullName, newName);
+
+                    var uploadedImageURL = DropboxImageUploader.Upload(newName);
+
+                    sb.Append("Image uploaded to " + uploadedImageURL);
+
+                    if (RecipeId != null)
+                    {
+                        targetRecipe = (from recipes in recipeRepository.All()
+                                        where recipes.Id == int.Parse(RecipeId)
+                                        select recipes).FirstOrDefault();
+                    }
+                    else
+                    {
+                        throw new ApplicationException("Invalid Recipe.");
+                    }
+
+                    if (StepId != null)
+                    {
+                        var step = (from steps in targetRecipe.PreparationSteps
+                                    where steps.Id == int.Parse(StepId)
+                                    select steps).FirstOrDefault();
+
+                        step.PictureLink = uploadedImageURL;
+                    }
+                    else
+                    {
+                        targetRecipe.PictureLink = uploadedImageURL;
+                    }
+                }
+
+                return new HttpResponseMessage()
+                {
+                    Content = new StringContent(sb.ToString())
+                };
+            }
+            catch (System.Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
         }
     }

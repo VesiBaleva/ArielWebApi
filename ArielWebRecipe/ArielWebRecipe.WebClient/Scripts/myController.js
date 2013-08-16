@@ -132,20 +132,9 @@ var controllers = (function () {
                 //fd.append("Recipe", JSON.stringify(newRecipe));
                 fd.append("SessionKey", "SomeSessionKey");
                 fd.append("ImageExtension", recipeImageExtension);
+                fd.append("RecipeId", 8);
 
-                //$.ajax({
-                //    url: "http://localhost:9181/api/Users/testUpload",
-                //    type: "POST",
-                //    data: fd,
-                //    processData: false,
-                //    contentType: false,
-                //    success: function (response) {
-                //        console.log(response);
-                //    },
-                //    error: function (jqXHR, textStatus, errorMessage) {
-                //        console.log(errorMessage); // Optional
-                //    }
-                //});
+                self.persister.imageUpload.uploadRawAjax(fd);
 
             });
             

@@ -51,6 +51,11 @@ namespace ArielWebRecipe.Repositories
                 queryStep.PreparationTime = step.PreparationTime;
             }
 
+            if (step.PictureLink != null)
+            {
+                queryStep.PictureLink = step.PictureLink;
+            }
+
             this.dbContext.SaveChanges();
 
             return queryStep;

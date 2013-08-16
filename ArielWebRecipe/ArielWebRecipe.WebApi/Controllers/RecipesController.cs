@@ -8,6 +8,11 @@ using ArielWebRecipe.Models;
 using ArielWebRecipe.Repositories;
 using ArielWebRecipe.Data;
 using System.Web.Http.Cors;
+using System.Threading.Tasks;
+using System.Text;
+using System.Web;
+using System.IO;
+using ArielWebRecipe.WebApi.Libraries;
 
 namespace ArielWebRecipe.WebApi.Models
 {
@@ -144,11 +149,11 @@ namespace ArielWebRecipe.WebApi.Models
 
         [HttpGet]
         [ActionName("search")]
-        public IEnumerable<Recipe> Search(string queryString)
+        public IEnumerable<RecipeInfo> Search(string sessionKey)
         {
             var recipies = (from recipes in recipeRepository.All()
-                           where recipes.Title.Contains(queryString)
-                                select recipes).Take(RECIPE_ON_PAGE_COUNT).OrderByDescending(x=>x.Users.Count);
+                           where recipes.Title.Contains(sessionKey)
+                                select recipes).Take(RECIPE_ON_PAGE_COUNT).OrderByDescending(x=>x.Users.Count).Select(RecipeInfo.FromRecipe);
 
             return recipies;
         }
@@ -156,12 +161,14 @@ namespace ArielWebRecipe.WebApi.Models
 
         [HttpGet]
         [ActionName("upload")]
-        async Task<HttpResponseMessage> Upload(string queryString)
+        async Task<HttpResponseMessage> Upload()
         {
-            string RecipeId = null;
+                        string RecipeId = null;
             string SessionKey = null;
             string StepId = null;
             string ImageExtension = null;
+
+            Recipe targetRecipe;
 
             // Check if the request contains multipart/form-data. 
             if (!Request.Content.IsMimeMultipartContent())
@@ -217,7 +224,41 @@ namespace ArielWebRecipe.WebApi.Models
 
                     File.Move(fileInfo.FullName, newName);
 
-                    //DropboxImageUploader.Upload(newName);
+                    var uploadedImageURL = DropboxImageUploader.Upload(newName);
+
+                    //deleting temp file 
+                    File.Delete(newName);
+
+                    sb.Append("Image uploaded to " + uploadedImageURL);
+
+                    if (RecipeId != null)
+                    {
+                        int recipeIdInt = int.Parse(RecipeId);
+
+                        targetRecipe = (from recipes in recipeRepository.All()
+                                        where recipes.Id== recipeIdInt
+                                        select recipes).FirstOrDefault();
+                    }
+                    else
+                    {
+                        throw new ApplicationException("Invalid Recipe.");
+                    }
+
+                    if (StepId != null)
+                    {
+                        int StepIdInt = int.Parse(StepId);
+                        var step = (from steps in targetRecipe.PreparationSteps
+                                    where steps.Id == StepIdInt
+                                    select steps).FirstOrDefault();
+
+                        step.PictureLink = uploadedImageURL;
+                        stepsRepository.Update(StepIdInt, step);
+                    }
+                    else
+                    {
+                        targetRecipe.PictureLink = uploadedImageURL;
+                        recipeRepository.Update(targetRecipe.Id, targetRecipe);
+                    }
                 }
 
                 return new HttpResponseMessage()
@@ -230,14 +271,5 @@ namespace ArielWebRecipe.WebApi.Models
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
         }
-
-        //[HttpGet]
-        //[ActionName("page")]
-        //public HttpResponseMessage GetRecipe(int sessionKey, int id)
-        //{
-        //    Recipe recipe = recipeRepository.Get(id);
-
-        //    RecipeDetails fullRecipe=
-        //}
     }
 }

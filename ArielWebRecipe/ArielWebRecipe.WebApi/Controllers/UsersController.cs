@@ -14,18 +14,27 @@ using System.Text;
 using System.Web;
 using System.Threading.Tasks;
 using ArielWebRecipe.WebApi.Libraries;
+using System.Data.Objects.SqlClient;
 
 namespace ArielWebRecipe.WebApi.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UsersController : ApiController
     {
+        private IRepository<Recipe> recipeRepository;
+        private IRepository<PreparationStep> stepsRepository;
         private IRepository<User> userRepository;
 
         public UsersController()
         {
             var dbContext = new RecipeContext();
             this.userRepository = new DbUserRepository(dbContext);
+
+            //var dbContextRecipes = new RecipeContext();
+            this.recipeRepository = new DbRecipeRepository(dbContext);
+
+            //var dbContextSteps = new RecipeContext();
+            this.stepsRepository = new DbPreparationStepRepository(dbContext);
         }
 
         public UsersController(IRepository<User> repository)
@@ -95,13 +104,15 @@ namespace ArielWebRecipe.WebApi.Controllers
         }
 
         [HttpPost]
-        [ActionName("testUpload")]
+        [ActionName("upload")]
         public async Task<HttpResponseMessage> TestUpload()
         {
             string RecipeId = null;
             string SessionKey = null;
             string StepId = null;
             string ImageExtension = null;
+
+            Recipe targetRecipe;
 
             // Check if the request contains multipart/form-data. 
             if (!Request.Content.IsMimeMultipartContent())
@@ -154,10 +165,44 @@ namespace ArielWebRecipe.WebApi.Controllers
 
                     //string rootFixed = root.Replace("/", "\\");
                     string newName = root + "\\" + SessionKey + RecipeId + StepId + ImageExtension;
-                    
+
                     File.Move(fileInfo.FullName, newName);
 
-                    //DropboxImageUploader.Upload(newName);
+                    var uploadedImageURL = DropboxImageUploader.Upload(newName);
+
+                    //deleting temp file 
+                    File.Delete(newName);
+
+                    sb.Append("Image uploaded to " + uploadedImageURL);
+
+                    if (RecipeId != null)
+                    {
+                        int recipeIdInt = int.Parse(RecipeId);
+
+                        targetRecipe = (from recipes in recipeRepository.All()
+                                        where recipes.Id== recipeIdInt
+                                        select recipes).FirstOrDefault();
+                    }
+                    else
+                    {
+                        throw new ApplicationException("Invalid Recipe.");
+                    }
+
+                    if (StepId != null)
+                    {
+                        int StepIdInt = int.Parse(StepId);
+                        var step = (from steps in targetRecipe.PreparationSteps
+                                    where steps.Id == StepIdInt
+                                    select steps).FirstOrDefault();
+
+                        step.PictureLink = uploadedImageURL;
+                        stepsRepository.Update(StepIdInt, step);
+                    }
+                    else
+                    {
+                        targetRecipe.PictureLink = uploadedImageURL;
+                        recipeRepository.Update(targetRecipe.Id, targetRecipe);
+                    }
                 }
 
                 return new HttpResponseMessage()

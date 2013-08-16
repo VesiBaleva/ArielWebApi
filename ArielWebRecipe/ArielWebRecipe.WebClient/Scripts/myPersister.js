@@ -125,11 +125,24 @@ var persisters = (function () {
         init: function (url) {
             this.rootUrl = url + "users/";
         },
-        upload: function (imageData, success, error) {
+        uploadRawAjax: function (formatData, success, error) {
 
-            var url = this.rootUrl + "testUpload/" + sessionKey;
+            var url = this.rootUrl + "upload";
 
-            httpRequester.postJSON(url, recipeData, success, error);
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: formatData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    //success(response);
+                },
+                error: function (jqXHR, textStatus, errorMessage) {
+                    console.log(errorMessage); // Optional
+                    error;
+                }
+            });
         },
     });
 

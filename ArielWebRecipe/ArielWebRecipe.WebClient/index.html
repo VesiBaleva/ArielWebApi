@@ -28,6 +28,9 @@
             width:400px;
             height:200px;
         }
+        #chatArea {
+            display:none;
+        }
     </style>    
 </head>
 <body>
@@ -40,14 +43,23 @@
         (function () {
             document.write("")
             PUBNUB.subscribe({
-                channel: nicknameSave,
+                channel: "ArielWebChat",//nicknameSave,
                 callback: function (message) {
-                    alert(message);
+                    //alert(message);
                     // Received a message --> print it in the page
-                    //document.getElementById('messagesArea').innerHTML += message + '\n';
+                    document.getElementById('messagesArea').innerHTML += message + '\n';
                 }
             });
         })();
+        function sendMessage() {
+            var newMessage = $('textarea#sendMessageArea').val();
+            $('textarea#sendMessageArea').val("");
+            console.log(newMessage);
+            PUBNUB.publish({
+                channel: "ArielWebChat",
+                message: newMessage
+            })
+        }
     </script>
     <div id="wrapper">
         <header>
@@ -56,6 +68,12 @@
         <div class="container">
         </div>        
     </div>
+    <div id="chatArea">
+        <textarea id="messagesArea" readonly></textarea>
+        <textarea id="sendMessageArea"></textarea>
+        <button id="sendPubNubMessage" onclick="sendMessage()">Send Chat Message</button>
+    </div>
     <script src="Scripts/bootstrap.js"></script>
+
 </body>
 </html>

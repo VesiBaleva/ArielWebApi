@@ -46,6 +46,9 @@ var controllers = (function() {
 				ui.mainUI(this.persister.user.getNickname());                      //this.persister.nickname());
             $(selector).html(mainUIHtml);
 
+            //display chat
+            $('#chatArea').show();
+
             this.updateUI(selector);
         },
 
